@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/app"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/ic_android_mobile1">
+
+    <TableRow
+        android:layout_width="fill_parent">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="350dp">
+            android:layout_width="fill_parent">
+        </FrameLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Project:\nValhe"
+            android:textSize="80sp"
+            android:textColor="#1b1b1b"/>
+    </TableRow>
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:id="@+id/test"
+
+            android:textSize="20sp"
+            android:textColor="#1b1b1b"/>
+    </TableRow>
+</TableLayout>
+
+
+
+
+
