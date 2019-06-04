@@ -1,3 +1,44 @@
 <resources>
-    <string name="app_name">Project_Valhe</string>
+    <string name="app_name">Project: Valhe</string>
+
+
+    <!--Buttons-->
+    <string name="back">Back</string>
+    <string name="playGame">Play Game</string>
+    <string name="showInformation">Show Information</string>
+    <string name="keepSelected">Keep Selected</string>
+    <string name="showHowItWorks">Show how it works</string>
+
+    <!--Textfields-->
+    <string name="chooseCombination">1. Choose Combination</string>
+    <string name="calculatePoints">2. Calculate points</string>
+    <string name="done">Done</string>
+    <string name="information">Information</string>
+    <string name="sumOfAllTheDices">sum of all the dices</string>
+
+
+    <!--Combination-->
+    <string name="points">Points</string>
+    <string name="combination">Combinations</string>
+    <string name="sum">Sum</string>
+
+    <string name="ones">Ones</string>
+    <string name="twos">Twos</string>
+    <string name="threes">Threes</string>Show how it works
+    <string name="fours">Fours</string>
+    <string name="fives">Fives</string>
+    <string name="sixes">Sixes</string>
+    <string name="threeOfAKind">Three of a kind</string>
+    <string name="fourOfAKind">Four of a kind</string>
+    <string name="littleStraight">little Straight</string>
+    <string name="bigStraight">Big Straight</string>
+    <string name="house">House</string>
+    <string name="chance">Chance</string>
+
+    <!--Information Text-->
+    <string name="informationText_1">The game is pretty simple. At first you can click on the dices to select the dices</string>
+    <string name="informationText_2">The game is pretty simple. At first you can click on the dices to select the dices</string>
+    <string name="informationText_3">The game is pretty simple. At first you can click on the dices to select the dices</string>
+    <string name="diceDescription">Dices are cool</string>
+
 </resources>

@@ -1,21 +1,14 @@
 package com.example.project_valhe;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TableLayout;
-import android.widget.TextView;
+import android.widget.FrameLayout;
 
 public class MainActivity extends Activity {
-   private TextView title;
-   private TextView test;
-   private TableLayout layout;
+   private FrameLayout layout;
    private int startDraggingX = 0;
    private int stopDraggingX = 0;
 
@@ -23,9 +16,7 @@ public class MainActivity extends Activity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
-      title = (TextView) findViewById(R.id.title);
-      test = (TextView) findViewById(R.id.test);
-      layout = (TableLayout) findViewById(R.id.app);
+      layout = (FrameLayout) findViewById(R.id.app);
 
 
       layout.setOnDragListener(new View.OnDragListener()
@@ -43,7 +34,6 @@ public class MainActivity extends Activity {
 
                if((startDraggingX - stopDraggingX) >= 50)
                {
-                  test.setText("cool");
                }
             }
             return true;
@@ -57,7 +47,6 @@ public class MainActivity extends Activity {
          public boolean onTouch(View v, MotionEvent event)
          {
             startDraggingX = (int) event.getX();
-            test.setText(startDraggingX);
 
             if(event.getAction() == MotionEvent.ACTION_UP)
             {

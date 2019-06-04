@@ -17,24 +17,34 @@
         <TableRow
             android:layout_width="fill_parent"
             android:layout_marginBottom="30sp">
-            <FrameLayout
-                android:layout_marginBottom="300sp">
-            </FrameLayout>
+            <TextView
+                android:id="@+id/title"
+                android:text="@string/app_name"
+                android:textSize="55sp"
+                android:textColor="@color/textColor"/>
         </TableRow>
         <TableRow>
-            <TextView
-                android:id="@+id/textView_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textSize="80sp"
+            <FrameLayout
+                android:layout_height="450sp">
+            </FrameLayout>
+        </TableRow>
+        <TableRow
+            android:layout_marginBottom="30sp">
+            <Switch
+                android:id="@+id/playGame"
+                android:text="@string/playGame"
+                android:textSize="20sp"
+                android:textColor="@color/textColor"/>
+        </TableRow>
+        <TableRow>
+            <Switch
+                android:id="@+id/information"
+                android:text="@string/showHowItWorks"
+                android:textSize="20sp"
                 android:textColor="@color/textColor"/>
         </TableRow>
     </TableLayout>
 </FrameLayout>
-
-
-
 
 
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <textfield name="chooseCombination">1. Choose Combination</textfield>
+    <textfield name="sumOfDices">Sum of the dices</textfield>
+    <textfield name="done">Done</textfield>
+    <textfield name="information">Information</textfield>
+    <textfield name="sumOfAllTheDices">sum of all the dices</textfield>
+</resources>
