@@ -17,29 +17,41 @@ public class SecondScreen extends AppCompatActivity {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_second_screen);
 
-      playGameSwitch = findViewById(R.id.playGame);
-      showInformation = findViewById(R.id.information);
+      playGameSwitch = (Switch) findViewById(R.id.playGame);
+      showInformation = (Switch) findViewById(R.id.information);
 
       playGameSwitch.setChecked(false);
       showInformation.setChecked(false);
+   }
+
+}
+
+
+/*
+
+
+
+
 
       playGameSwitch.setOnClickListener((View.OnClickListener) this);
       showInformation.setOnClickListener((View.OnClickListener) this);
-   }
-   public void onClick(View view) {
+
+ public void onClick(View view) {
       switch (view.getId()) {
          case R.id.playGame:
-           // showGame();
+           showGame();
          case R.id.information:
            // showInformation();
       }
    }
-/*
+
    private void showGame(){
-      startActivity(new Intent(SecondActivity.this, StartGameScreen.class));
+      //startActivity(new Intent(SecondActivity.this, StartGameScreen.class));
+      finish();
    }
 
    private void showInformation(){
-      startActivity(new Intent(SecondActivity.this, InformationActivity.class));
-   }*/
-}
+      //startActivity(new Intent(SecondActivity.this, InformationActivity.class));
+      finish();
+   }
+ */
