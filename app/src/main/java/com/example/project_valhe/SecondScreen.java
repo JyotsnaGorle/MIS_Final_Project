@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 public class SecondScreen extends AppCompatActivity {
 
@@ -17,41 +18,39 @@ public class SecondScreen extends AppCompatActivity {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_second_screen);
 
+
+      setupGameSwitch();
+      setupInfoSwitch();
+
+   }
+
+   private void setupGameSwitch()
+   {
       playGameSwitch = (Switch) findViewById(R.id.playGame);
-      showInformation = (Switch) findViewById(R.id.information);
-
       playGameSwitch.setChecked(false);
+
+      playGameSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked)
+            {
+               startActivity(new Intent(SecondScreen.this, StartGameScreen.class));
+            }
+         }
+      });
+   }
+
+   private void setupInfoSwitch()
+   {
+      showInformation = (Switch) findViewById(R.id.information);
       showInformation.setChecked(false);
-   }
 
+      showInformation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked)
+            {
+               startActivity(new Intent(SecondScreen.this, InformationScreen.class));
+            }
+         }
+      });
+   }
 }
-
-
-/*
-
-
-
-
-
-      playGameSwitch.setOnClickListener((View.OnClickListener) this);
-      showInformation.setOnClickListener((View.OnClickListener) this);
-
- public void onClick(View view) {
-      switch (view.getId()) {
-         case R.id.playGame:
-           showGame();
-         case R.id.information:
-           // showInformation();
-      }
-   }
-
-   private void showGame(){
-      //startActivity(new Intent(SecondActivity.this, StartGameScreen.class));
-      finish();
-   }
-
-   private void showInformation(){
-      //startActivity(new Intent(SecondActivity.this, InformationActivity.class));
-      finish();
-   }
- */

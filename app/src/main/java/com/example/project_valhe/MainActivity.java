@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -16,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
+
+      this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+           WindowManager.LayoutParams.FLAG_FULLSCREEN);
       configureGesture();
    }
 
@@ -26,12 +30,8 @@ public class MainActivity extends AppCompatActivity {
          @Override
          public boolean onTouch(View v, MotionEvent event) {
             switch (event.getAction()) {
-               case MotionEvent.ACTION_DOWN:
-                  Toast.makeText(getBaseContext(), "down", Toast.LENGTH_SHORT).show();
                case MotionEvent.ACTION_UP:
                   startActivity(new Intent(MainActivity.this, SecondScreen.class));
-               case MotionEvent.ACTION_MOVE:
-                  Toast.makeText(getBaseContext(), "test" , Toast.LENGTH_SHORT).show();
             }
             return true;
          }

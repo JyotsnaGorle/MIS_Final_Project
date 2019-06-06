@@ -34,11 +34,28 @@
     <string name="bigStraight">Big Straight</string>
     <string name="house">House</string>
     <string name="chance">Chance</string>
+    <string name="payment">Payment</string>
 
     <!--Information Text-->
     <string name="informationText_1">The game is pretty simple. At first you can click on the dices to select the dices</string>
     <string name="informationText_2">The game is pretty simple. At first you can click on the dices to select the dices</string>
     <string name="informationText_3">The game is pretty simple. At first you can click on the dices to select the dices</string>
     <string name="diceDescription">Dices are cool</string>
+
+    <string name="combinationList">Combination</string>
+
+    <string-array name="combinations_array">
+        <item>@string/ones</item>
+        <item>@string/twos</item>
+        <item>@string/threes</item>
+        <item>@string/fours</item>
+        <item>@string/fives</item>
+        <item>@string/sixes</item>
+        <item>@string/threeOfAKind</item>
+        <item>@string/fourOfAKind</item>
+        <item>@string/littleStraight</item>
+        <item>@string/bigStraight</item>
+        <item>@string/house</item>
+    </string-array>
 
 </resources>
