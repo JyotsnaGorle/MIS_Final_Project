@@ -54,4 +54,8 @@
                 android:textColor="@color/textColor"/>
         </TableRow>
     </TableLayout>
+    <FrameLayout
+        android:id="@+id/information_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>

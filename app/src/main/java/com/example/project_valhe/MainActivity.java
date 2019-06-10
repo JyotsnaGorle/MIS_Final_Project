@@ -7,12 +7,10 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-public class MainActivity extends AppCompatActivity implements SecondScreen.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements SecondScreen.OnFragmentInteractionListener{
 
    private RelativeLayout layout;
    private FrameLayout fragmentContainer;
@@ -39,13 +37,11 @@ public class MainActivity extends AppCompatActivity implements SecondScreen.OnFr
             switch (event.getAction()) {
                case MotionEvent.ACTION_UP:
                   openSecondScreen();
-                  //startActivity(new Intent(MainActivity.this, SecondScreen.class));
             }
             return true;
          }
       });
    }
-
 
    public void openSecondScreen() {
       SecondScreen fragment = SecondScreen.newInstance();
@@ -57,8 +53,6 @@ public class MainActivity extends AppCompatActivity implements SecondScreen.OnFr
    }
 
    @Override
-   public void onFragmentInteraction(String sendBackText) {
-      //editText.setText(sendBackText);
-      //onBackPressed();
+   public void onFragmentInteraction(String test) {
    }
 }

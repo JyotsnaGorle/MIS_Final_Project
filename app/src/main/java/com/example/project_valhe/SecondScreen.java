@@ -3,16 +3,18 @@ package com.example.project_valhe;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
-public class SecondScreen extends Fragment {
+public class SecondScreen extends Fragment{
 
    private OnFragmentInteractionListener mListener;
-
+   private Switch playGameSwitch;
+   private Switch showInformation;
 
    public SecondScreen() {
    }
@@ -20,9 +22,7 @@ public class SecondScreen extends Fragment {
    // TODO: Rename and change types and number of parameters
    public static SecondScreen newInstance() {
       SecondScreen fragment = new SecondScreen();
-      //Bundle args = new Bundle();
-      //args.putString(TEXT, text);
-      //fragment.setArguments(args);
+
       return fragment;
    }
 
@@ -30,7 +30,6 @@ public class SecondScreen extends Fragment {
    public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       if (getArguments() != null) {
-         //mText = getArguments().getString(TEXT);
       }
    }
 
@@ -39,19 +38,10 @@ public class SecondScreen extends Fragment {
                             Bundle savedInstanceState) {
       View view = inflater.inflate(R.layout.fragment_second_screen, container, false);
 
-      //buttonFragment = view.findViewById(R.id.button_fragment);
-      //editTextFragment = view.findViewById(R.id.edittext_fragment);
-      //editTextFragment.setText(mText);
-      //editTextFragment.requestFocus();
-/*
-      buttonFragment.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            String sendBackText = editTextFragment.getText().toString();
-            sendBack(sendBackText);
-         }
-      });
-*/
+
+      setupGameSwitch(view);
+      setupInfoSwitch(view);
+
       return view;
    }
 
@@ -79,18 +69,42 @@ public class SecondScreen extends Fragment {
       mListener = null;
    }
 
-   /**
-    * This interface must be implemented by activities that contain this
-    * fragment to allow an interaction in this fragment to be communicated
-    * to the activity and potentially other fragments contained in that
-    * activity.
-    * <p>
-    * See the Android Training lesson <a href=
-    * "http://developer.android.com/training/basics/fragments/communicating.html"
-    * >Communicating with Other Fragments</a> for more information.
-    */
    public interface OnFragmentInteractionListener {
       // TODO: Update argument type and name
       void onFragmentInteraction(String sendBackText);
+   }
+
+   private void setupGameSwitch(View view)
+   {
+      playGameSwitch = (Switch) view.findViewById(R.id.playGame);
+      playGameSwitch.setChecked(false);
+
+      playGameSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked)
+            {
+            }
+         }
+      });
+   }
+
+   private void setupInfoSwitch(View view)
+   {
+      showInformation = (Switch) view.findViewById(R.id.information);
+      showInformation.setChecked(false);
+
+      showInformation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked)
+            {
+
+               FragmentTransaction transaction = getFragmentManager().beginTransaction();
+               transaction.replace(R.id.fragment_container, new Information(), "INFORMATION_SCREEN");
+               transaction.setCustomAnimations(R.anim.enter_from_bottom, R.anim.exit_from_bottom);
+               transaction.addToBackStack(null);
+               transaction.commit();
+            }
+         }
+      });
    }
 }
