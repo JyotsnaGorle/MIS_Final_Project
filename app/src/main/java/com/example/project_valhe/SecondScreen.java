@@ -13,7 +13,7 @@ import android.widget.Switch;
 public class SecondScreen extends Fragment{
 
    private OnFragmentInteractionListener mListener;
-   private Switch playGameSwitch;
+   private Switch playGame;
    private Switch showInformation;
 
    public SecondScreen() {
@@ -39,8 +39,8 @@ public class SecondScreen extends Fragment{
       View view = inflater.inflate(R.layout.fragment_second_screen, container, false);
 
 
-      setupGameSwitch(view);
-      setupInfoSwitch(view);
+      configureGameSwitch(view);
+      configureInfoSwitch(view);
 
       return view;
    }
@@ -74,12 +74,12 @@ public class SecondScreen extends Fragment{
       void onFragmentInteraction(String sendBackText);
    }
 
-   private void setupGameSwitch(View view)
+   private void configureGameSwitch(View view)
    {
-      playGameSwitch = (Switch) view.findViewById(R.id.playGame);
-      playGameSwitch.setChecked(false);
+      playGame = (Switch) view.findViewById(R.id.playGame);
+      playGame.setChecked(false);
 
-      playGameSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      playGame.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
          public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked)
             {
@@ -88,7 +88,7 @@ public class SecondScreen extends Fragment{
       });
    }
 
-   private void setupInfoSwitch(View view)
+   private void configureInfoSwitch(View view)
    {
       showInformation = (Switch) view.findViewById(R.id.information);
       showInformation.setChecked(false);

@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements SecondScreen.OnFr
       });
    }
 
-   public void openSecondScreen() {
+   private void openSecondScreen() {
       SecondScreen fragment = SecondScreen.newInstance();
       FragmentManager fragmentManager = getSupportFragmentManager();
       FragmentTransaction transaction = fragmentManager.beginTransaction();
