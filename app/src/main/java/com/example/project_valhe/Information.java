@@ -1,19 +1,14 @@
 package com.example.project_valhe;
 
-import android.content.Context;
-import android.net.Uri;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.TextView;
-
 
 public class Information extends Fragment {
 
@@ -32,7 +27,6 @@ public class Information extends Fragment {
    private void configureSwitch(View view){
 
       back = view.findViewById(R.id.information_back);
-      test = view.findViewById(R.id.test);
       back.setChecked(true);
 
       back.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
