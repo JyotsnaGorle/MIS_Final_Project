@@ -1,56 +1,96 @@
 package com.example.project_valhe;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
 import android.os.Bundle;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.Switch;
-public class SecondScreen extends AppCompatActivity {
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
-   private Switch playGameSwitch;
-   private Switch showInformation;
+public class SecondScreen extends Fragment {
+
+   private OnFragmentInteractionListener mListener;
+
+
+   public SecondScreen() {
+   }
+
+   // TODO: Rename and change types and number of parameters
+   public static SecondScreen newInstance() {
+      SecondScreen fragment = new SecondScreen();
+      //Bundle args = new Bundle();
+      //args.putString(TEXT, text);
+      //fragment.setArguments(args);
+      return fragment;
+   }
 
    @Override
-   protected void onCreate(Bundle savedInstanceState) {
+   public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      setContentView(R.layout.activity_second_screen);
-
-
-      setupGameSwitch();
-      setupInfoSwitch();
-
+      if (getArguments() != null) {
+         //mText = getArguments().getString(TEXT);
+      }
    }
 
-   private void setupGameSwitch()
-   {
-      playGameSwitch = (Switch) findViewById(R.id.playGame);
-      playGameSwitch.setChecked(false);
+   @Override
+   public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                            Bundle savedInstanceState) {
+      View view = inflater.inflate(R.layout.fragment_second_screen, container, false);
 
-      playGameSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked)
-            {
-               startActivity(new Intent(SecondScreen.this, StartGameScreen.class));
-            }
+      //buttonFragment = view.findViewById(R.id.button_fragment);
+      //editTextFragment = view.findViewById(R.id.edittext_fragment);
+      //editTextFragment.setText(mText);
+      //editTextFragment.requestFocus();
+/*
+      buttonFragment.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            String sendBackText = editTextFragment.getText().toString();
+            sendBack(sendBackText);
          }
       });
+*/
+      return view;
    }
 
-   private void setupInfoSwitch()
-   {
-      showInformation = (Switch) findViewById(R.id.information);
-      showInformation.setChecked(false);
+   // TODO: Rename method, update argument and hook method into UI event
+   public void sendBack(String sendBackText) {
+      if (mListener != null) {
+         mListener.onFragmentInteraction(sendBackText);
+      }
+   }
 
-      showInformation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked)
-            {
-               startActivity(new Intent(SecondScreen.this, InformationScreen.class));
-            }
-         }
-      });
+   @Override
+   public void onAttach(Context context) {
+      super.onAttach(context);
+      if (context instanceof OnFragmentInteractionListener) {
+         mListener = (OnFragmentInteractionListener) context;
+      } else {
+         throw new RuntimeException(context.toString()
+              + " must implement OnFragmentInteractionListener");
+      }
+   }
+
+   @Override
+   public void onDetach() {
+      super.onDetach();
+      mListener = null;
+   }
+
+   /**
+    * This interface must be implemented by activities that contain this
+    * fragment to allow an interaction in this fragment to be communicated
+    * to the activity and potentially other fragments contained in that
+    * activity.
+    * <p>
+    * See the Android Training lesson <a href=
+    * "http://developer.android.com/training/basics/fragments/communicating.html"
+    * >Communicating with Other Fragments</a> for more information.
+    */
+   public interface OnFragmentInteractionListener {
+      // TODO: Update argument type and name
+      void onFragmentInteraction(String sendBackText);
    }
 }
