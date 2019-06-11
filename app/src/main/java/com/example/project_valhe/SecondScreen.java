@@ -70,7 +70,6 @@ public class SecondScreen extends Fragment{
    }
 
    public interface OnFragmentInteractionListener {
-      // TODO: Update argument type and name
       void onFragmentInteraction(String sendBackText);
    }
 
@@ -83,6 +82,11 @@ public class SecondScreen extends Fragment{
          public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked)
             {
+               FragmentTransaction transaction = getFragmentManager().beginTransaction();
+               transaction.replace(R.id.fragment_container, new StartGame(), "START_GAME");
+               transaction.setCustomAnimations(R.anim.enter_from_bottom, R.anim.exit_from_bottom);
+               transaction.addToBackStack(null);
+               transaction.commit();
             }
          }
       });
@@ -97,7 +101,6 @@ public class SecondScreen extends Fragment{
          public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked)
             {
-
                FragmentTransaction transaction = getFragmentManager().beginTransaction();
                transaction.replace(R.id.fragment_container, new Information(), "INFORMATION_SCREEN");
                transaction.setCustomAnimations(R.anim.enter_from_bottom, R.anim.exit_from_bottom);
