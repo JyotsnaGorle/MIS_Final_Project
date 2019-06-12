@@ -84,7 +84,7 @@ public class SecondScreen extends Fragment{
             {
                FragmentTransaction transaction = getFragmentManager().beginTransaction();
                transaction.replace(R.id.fragment_container, new StartGame(), "START_GAME");
-               transaction.setCustomAnimations(R.anim.enter_from_bottom, R.anim.exit_from_bottom);
+               transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_right, R.anim.enter_from_right, R.anim.exit_from_right);
                transaction.addToBackStack(null);
                transaction.commit();
             }
