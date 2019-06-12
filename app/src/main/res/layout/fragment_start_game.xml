@@ -40,14 +40,67 @@
                 android:layout_width="match_parent"
                 android:layout_height="300sp"
                 android:orientation="horizontal">
-                <ImageView
-                    android:layout_height="wrap_content"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:background="@drawable/my_dices"
-                    android:contentDescription="@string/diceDescription"
-                    android:gravity="center"
-                    android:layout_marginRight="20sp"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
+                    <TableLayout
+                        android:id="@+id/dices"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent">
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:id="@+id/dice1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/my_dice1" />
+                            <ImageView
+                                android:id="@+id/dice2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/my_dice2" />
+                        </TableRow>
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:id="@+id/dice3"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/my_dice3" />
+                            <ImageView
+                                android:id="@+id/dice4"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/my_dice4" />
+
+                        </TableRow>
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:id="@+id/dice5"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/my_dice5" />
+                            <ImageView
+                                android:id="@+id/dice6"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/my_dice6" />
+                        </TableRow>
+                    </TableLayout>
+                    <TextView
+                        android:id="@+id/touchButtons"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:textColor="@color/textColor"
+                        android:text="@string/touchButtons" />
+                </LinearLayout>
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
