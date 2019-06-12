@@ -57,6 +57,7 @@
         <item>@string/house</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--Notification Texts-->
+    <string name="touchButtons">Through the dices!</string>
+
 </resources>
