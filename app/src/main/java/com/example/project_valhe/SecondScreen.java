@@ -18,8 +18,8 @@ public class SecondScreen extends Fragment{
    private LinearLayout showInformation;
    private int upIndex;
    private int leftIndex;
-   int[] upArray = new int[10];
-   int[] leftArray = new int[10];
+   private int[] upArray = new int[10];
+   private int[] leftArray = new int[10];
 
    public SecondScreen() {
    }
