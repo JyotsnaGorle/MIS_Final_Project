@@ -98,7 +98,7 @@
                         android:id="@+id/touchButtons"
                         android:layout_width="match_parent"
                         android:layout_height="fill_parent"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/primaryTextColor"
                         android:text="@string/touchButtons" />
                 </LinearLayout>
                 <TableLayout
@@ -114,13 +114,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/combination"
-                            android:textColor="@color/textColor"/>
+                            android:textColor="@color/primaryTextColor"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/points"
                             android:textAlignment="viewEnd"
-                            android:textColor="@color/textColor"/>
+                            android:textColor="@color/primaryTextColor"/>
                     </TableRow>
                     <TableRow
                         android:layout_marginStart="10sp"
@@ -130,7 +130,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ones"
-                            android:textColor="@color/textColor"/>
+                            android:textColor="@color/primaryTextColor"/>
                     </TableRow>
                     <TableRow
                         android:layout_marginStart="10sp"
@@ -140,7 +140,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/twos"
-                            android:textColor="@color/textColor"/>
+                            android:textColor="@color/primaryTextColor"/>
                     </TableRow>
                     <TableRow
                         android:layout_marginStart="10sp"
@@ -150,7 +150,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/threes"
-                            android:textColor="@color/textColor"/>
+                            android:textColor="@color/primaryTextColor"/>
                     </TableRow>
                     <TableRow
                         android:layout_marginStart="10sp"
@@ -160,7 +160,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/fours"
-                            android:textColor="@color/textColor"/>
+                            android:textColor="@color/primaryTextColor"/>
                     </TableRow>
                     <TableRow
                         android:layout_marginStart="10sp"
@@ -170,7 +170,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/fives"
-                            android:textColor="@color/textColor"/>
+                            android:textColor="@color/primaryTextColor"/>
                     </TableRow>
                     <TableRow
                         android:layout_marginStart="10sp"
@@ -181,7 +181,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/sixes"
-                            android:textColor="@color/textColor"/>
+                            android:textColor="@color/primaryTextColor"/>
                     </TableRow>
                     <TableRow
                         android:layout_marginStart="10sp"
@@ -191,7 +191,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/threeOfAKind"
-                            android:textColor="@color/textColor"/>
+                            android:textColor="@color/primaryTextColor"/>
                     </TableRow>
                     <TableRow
                         android:layout_marginStart="10sp"
@@ -201,7 +201,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/fourOfAKind"
-                            android:textColor="@color/textColor"/>
+                            android:textColor="@color/primaryTextColor"/>
 
                     </TableRow>
                     <TableRow
@@ -212,7 +212,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/littleStraight"
-                            android:textColor="@color/textColor"/>
+                            android:textColor="@color/primaryTextColor"/>
                     </TableRow>
                     <TableRow
                         android:layout_marginStart="10sp"
@@ -222,7 +222,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/bigStraight"
-                            android:textColor="@color/textColor"/>
+                            android:textColor="@color/primaryTextColor"/>
                     </TableRow>
                     <TableRow
                         android:layout_marginStart="10sp"
@@ -232,7 +232,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/house"
-                            android:textColor="@color/textColor"/>
+                            android:textColor="@color/primaryTextColor"/>
                     </TableRow>
                     <TableRow
                         android:layout_marginStart="10sp"
@@ -242,7 +242,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/chance"
-                            android:textColor="@color/textColor"/>
+                            android:textColor="@color/primaryTextColor"/>
                     </TableRow>
                     <TableRow
                         android:layout_marginStart="10sp"
@@ -256,7 +256,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/payment"
-                            android:textColor="@color/textColor"/>
+                            android:textColor="@color/primaryTextColor"/>
                     </TableRow>
                 </TableLayout>
             </LinearLayout>

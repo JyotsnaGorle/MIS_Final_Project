@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
                 android:textSize="80sp"
-                android:textColor="@color/textColor"/>
+                android:textColor="@color/primaryTextColor"/>
 
         </TableRow>
     </TableLayout>

@@ -38,7 +38,7 @@
             android:layout_marginBottom="10sp">
             <TextView
                 android:layout_width="wrap_content"
-                android:textColor="@color/textColor"
+                android:textColor="@color/primaryTextColor"
                 android:text="@string/informationText_1" />
         </TableRow>
         <TableRow
@@ -60,7 +60,7 @@
                     android:layout_width="210sp"
                     android:layout_height="wrap_content"
                     android:text="@string/informationText_1"
-                    android:textColor="@color/textColor" />
+                    android:textColor="@color/primaryTextColor" />
             </LinearLayout>
         </TableRow>
         <TableRow
@@ -68,7 +68,7 @@
             android:layout_marginBottom="90sp">
             <TextView
                 android:layout_width="wrap_content"
-                android:textColor="@color/textColor"
+                android:textColor="@color/primaryTextColor"
                 android:text="@string/informationText_1" />
         </TableRow>
         <TableRow>
