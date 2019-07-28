@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity implements SecondScreen.OnFr
    private RelativeLayout layout;
    private FrameLayout fragmentContainer;
    private int index;
-   int[] yPos = new int[10];
+   private int[] yPos = new int[10];
 
 
    @Override
