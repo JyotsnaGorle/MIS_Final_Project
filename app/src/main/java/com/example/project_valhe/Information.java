@@ -57,11 +57,8 @@ public class Information extends Fragment {
                System.out.println(left);
                if(left == true)
                {
-                  FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                  transaction.replace(R.id.fragment_container, new SecondScreen(), "SECOND_SCREEN");
-                  transaction.setCustomAnimations(R.anim.enter_from_top, R.anim.enter_from_top);
-                  transaction.addToBackStack(null);
-                  transaction.commit();
+                  FragmentManager fm = getFragmentManager();
+                  fm.popBackStack();
                }
                downIndex = 0;
             }

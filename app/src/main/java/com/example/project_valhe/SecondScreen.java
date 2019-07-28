@@ -110,7 +110,7 @@ public class SecondScreen extends Fragment{
                {
                   FragmentTransaction transaction = getFragmentManager().beginTransaction();
                   transaction.replace(R.id.fragment_container, new StartGame(), "Start_SCREEN");
-                  transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.enter_from_right);
+                  transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.enter_from_right, R.anim.enter_from_right, R.anim.enter_from_right);
                   transaction.addToBackStack(null);
                   transaction.commit();
                }
@@ -152,7 +152,7 @@ public class SecondScreen extends Fragment{
                {
                   FragmentTransaction transaction = getFragmentManager().beginTransaction();
                   transaction.replace(R.id.fragment_container, new Information(), "INFORMATION_SCREEN");
-                  transaction.setCustomAnimations(R.anim.enter_from_bottom, R.anim.exit_from_bottom);
+                  transaction.setCustomAnimations(R.anim.enter_from_bottom, R.anim.exit_from_bottom, R.anim.enter_from_bottom, R.anim.exit_from_bottom);
                   transaction.addToBackStack(null);
                   transaction.commit();
                }
