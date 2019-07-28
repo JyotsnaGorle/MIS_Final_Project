@@ -4,21 +4,26 @@ package com.example.project_valhe;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 
 public class Information extends Fragment {
 
-   private Switch back;
+   private LinearLayout back;
+   private int[] downArray = new int[10];
+   private int downIndex;
 
    @Override
    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                             Bundle savedInstanceState) {
       View view = inflater.inflate(R.layout.fragment_information, container, false);
-
+      downIndex = 0;
       configureSwitch(view);
 
       return view;
@@ -27,15 +32,40 @@ public class Information extends Fragment {
    private void configureSwitch(View view){
 
       back = view.findViewById(R.id.information_back);
-      back.setChecked(true);
+      back.setOnTouchListener(new View.OnTouchListener() {
+         @Override
+         public boolean onTouch(View v, MotionEvent event) {
+            int x = (int) event.getX();
+            boolean left = false;
+            int limit = downArray.length;
 
-      back.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked)
-            {
-               FragmentManager fm = getFragmentManager();
-               fm.popBackStack();
+            if(downIndex != limit) {
+               downArray[downIndex] = x;
+               downIndex = downIndex + 1;
             }
+            else{
+               for(int i = 0; i < limit - 1; ++i){
+                  if(downArray[i] < downArray[i + 1])
+                  {
+                     left = true;
+                  }
+                  else{
+                     left = false;
+                     break;
+                  }
+               }
+               System.out.println(left);
+               if(left == true)
+               {
+                  FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                  transaction.replace(R.id.fragment_container, new SecondScreen(), "SECOND_SCREEN");
+                  transaction.setCustomAnimations(R.anim.enter_from_top, R.anim.enter_from_top);
+                  transaction.addToBackStack(null);
+                  transaction.commit();
+               }
+               downIndex = 0;
+            }
+            return true;
          }
       });
    }

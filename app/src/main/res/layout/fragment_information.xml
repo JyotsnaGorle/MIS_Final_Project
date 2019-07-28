@@ -72,10 +72,21 @@
                 android:text="@string/informationText_1" />
         </TableRow>
         <TableRow>
-            <Switch
+            <LinearLayout
                 android:id="@+id/information_back"
-                android:text="@string/back"
-                android:textSize="20sp"/>
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/my_layout"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="100sp"
+                    android:layout_marginStart="10sp"
+                    android:text="@string/back"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="20sp" />
+            </LinearLayout>
         </TableRow>
     </TableLayout>
 
