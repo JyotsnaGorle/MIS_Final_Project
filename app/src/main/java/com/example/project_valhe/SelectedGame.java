@@ -29,11 +29,11 @@ public class SelectedGame extends Fragment {
       View view = inflater.inflate(R.layout.fragment_selected_game, container, false);
 
       configureBack(view);
-      configureButton(view);
+      configureDone(view);
       return view;
    }
 
-   private void configureButton(View view){
+   private void configureDone(View view){
 
       done = view.findViewById(R.id.done);
       calPoint = view.findViewById(R.id.calPoints);

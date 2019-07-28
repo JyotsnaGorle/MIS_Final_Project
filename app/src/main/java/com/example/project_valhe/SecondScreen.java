@@ -51,13 +51,6 @@ public class SecondScreen extends Fragment{
       return view;
    }
 
-   // TODO: Rename method, update argument and hook method into UI event
-   public void sendBack(String sendBackText) {
-      if (mListener != null) {
-         mListener.onFragmentInteraction(sendBackText);
-      }
-   }
-
    @Override
    public void onAttach(Context context) {
       super.onAttach(context);

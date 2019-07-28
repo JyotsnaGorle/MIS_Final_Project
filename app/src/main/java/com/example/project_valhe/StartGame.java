@@ -24,11 +24,12 @@ public class StartGame extends Fragment {
    private ImageView[] diceArray;
    private TextView touchButtons;
 
-   private int[] liftArray = new int[10];
+   private int[] leftArray = new int[10];
    private int leftIndex;
 
    private int[] rightArray = new int[10];
    private int rightIndex;
+
    public StartGame(){
       diceArray = new ImageView[6];
    }
@@ -41,7 +42,7 @@ public class StartGame extends Fragment {
       rightIndex = 0;
       configureBack(view);
       configurePlay(view);
-      configureDicesImage(view);
+      configureDiceImage(view);
       return view;
    }
 
@@ -53,15 +54,15 @@ public class StartGame extends Fragment {
          public boolean onTouch(View v, MotionEvent event) {
             int x = (int) event.getX();
             boolean left = false;
-            int limit = liftArray.length;
+            int limit = leftArray.length;
 
             if(leftIndex != limit) {
-               liftArray[leftIndex] = x;
+               leftArray[leftIndex] = x;
                leftIndex = leftIndex + 1;
             }
             else{
                for(int i = 0; i < limit - 1; ++i){
-                  if(liftArray[i] > liftArray[i + 1])
+                  if(leftArray[i] > leftArray[i + 1])
                   {
                      left = true;
                   }
@@ -126,7 +127,7 @@ public class StartGame extends Fragment {
       });
    }
 
-   private void configureDicesImage(View view) {
+   private void configureDiceImage(View view) {
       final int arrayLength = diceArray.length;
       TableLayout dices = view.findViewById(R.id.dices);
       touchButtons = view.findViewById(R.id.touchButtons);
