@@ -24,12 +24,12 @@ public class Information extends Fragment {
                             Bundle savedInstanceState) {
       View view = inflater.inflate(R.layout.fragment_information, container, false);
       downIndex = 0;
-      configureSwitch(view);
+      configureBack(view);
 
       return view;
    }
 
-   private void configureSwitch(View view){
+   private void configureBack(View view){
 
       back = view.findViewById(R.id.information_back);
       back.setOnTouchListener(new View.OnTouchListener() {
