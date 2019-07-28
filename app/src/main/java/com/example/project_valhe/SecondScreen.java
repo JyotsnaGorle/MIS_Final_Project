@@ -5,16 +5,21 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.Switch;
+import android.widget.LinearLayout;
 
 public class SecondScreen extends Fragment{
 
    private OnFragmentInteractionListener mListener;
-   private Switch playGame;
-   private Switch showInformation;
+   private LinearLayout playGame;
+   private LinearLayout showInformation;
+   private int upIndex;
+   private int leftIndex;
+   int[] upArray = new int[10];
+   int[] leftArray = new int[10];
 
    public SecondScreen() {
    }
@@ -38,9 +43,10 @@ public class SecondScreen extends Fragment{
                             Bundle savedInstanceState) {
       View view = inflater.inflate(R.layout.fragment_second_screen, container, false);
 
-
-      configureGameSwitch(view);
-      configureInfoSwitch(view);
+      leftIndex = 0;
+      upIndex = 0;
+      configureGameLayout(view);
+      configureInfoLayout(view);
 
       return view;
    }
@@ -73,40 +79,86 @@ public class SecondScreen extends Fragment{
       void onFragmentInteraction(String sendBackText);
    }
 
-   private void configureGameSwitch(View view)
+   private void configureGameLayout(View view)
    {
-      playGame = (Switch) view.findViewById(R.id.playGame);
-      playGame.setChecked(false);
+      playGame = (LinearLayout) view.findViewById(R.id.playGame);
 
-      playGame.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked)
-            {
-               FragmentTransaction transaction = getFragmentManager().beginTransaction();
-               transaction.replace(R.id.fragment_container, new StartGame(), "START_GAME");
-               transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_right, R.anim.enter_from_right, R.anim.exit_from_right);
-               transaction.addToBackStack(null);
-               transaction.commit();
+      playGame.setOnTouchListener(new View.OnTouchListener() {
+         @Override
+         public boolean onTouch(View v, MotionEvent event) {
+            int x = (int) event.getX();
+            boolean left = false;
+            int limit = leftArray.length;
+
+            if(leftIndex != limit) {
+               leftArray[leftIndex] = x;
+               leftIndex = leftIndex + 1;
             }
+            else{
+               for(int i = 0; i < limit - 1; ++i){
+                  if(leftArray[i] > leftArray[i + 1])
+                  {
+                     left = true;
+                  }
+                  else{
+                     left = false;
+                     break;
+                  }
+               }
+               System.out.println(left);
+               if(left == true)
+               {
+                  FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                  transaction.replace(R.id.fragment_container, new StartGame(), "Start_SCREEN");
+                  transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.enter_from_right);
+                  transaction.addToBackStack(null);
+                  transaction.commit();
+               }
+               leftIndex = 0;
+            }
+            return true;
          }
       });
    }
 
-   private void configureInfoSwitch(View view)
+   private void configureInfoLayout(View view)
    {
-      showInformation = (Switch) view.findViewById(R.id.information);
-      showInformation.setChecked(false);
+      showInformation = (LinearLayout) view.findViewById(R.id.information);
 
-      showInformation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked)
-            {
-               FragmentTransaction transaction = getFragmentManager().beginTransaction();
-               transaction.replace(R.id.fragment_container, new Information(), "INFORMATION_SCREEN");
-               transaction.setCustomAnimations(R.anim.enter_from_bottom, R.anim.exit_from_bottom);
-               transaction.addToBackStack(null);
-               transaction.commit();
+      showInformation.setOnTouchListener(new View.OnTouchListener() {
+         @Override
+         public boolean onTouch(View v, MotionEvent event) {
+            int y = (int) event.getY();
+            boolean up = false;
+            int limit = upArray.length;
+
+            if(upIndex != limit) {
+               upArray[upIndex] = y;
+               upIndex = upIndex + 1;
             }
+            else{
+               for(int i = 0; i < limit - 1; ++i){
+                  if(upArray[i] > upArray[i + 1])
+                  {
+                     up = true;
+                  }
+                  else{
+                     up = false;
+                     break;
+                  }
+               }
+               System.out.println(up);
+               if(up == true)
+               {
+                  FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                  transaction.replace(R.id.fragment_container, new Information(), "INFORMATION_SCREEN");
+                  transaction.setCustomAnimations(R.anim.enter_from_bottom, R.anim.exit_from_bottom);
+                  transaction.addToBackStack(null);
+                  transaction.commit();
+               }
+               upIndex = 0;
+            }
+            return true;
          }
       });
    }
