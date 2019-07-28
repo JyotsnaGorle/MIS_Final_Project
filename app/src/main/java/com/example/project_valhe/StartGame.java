@@ -8,11 +8,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -22,6 +24,11 @@ public class StartGame extends Fragment {
    private ImageView[] diceArray;
    private TextView touchButtons;
 
+   private int[] liftArray = new int[10];
+   private int leftIndex;
+
+   private int[] rightArray = new int[10];
+   private int rightIndex;
    public StartGame(){
       diceArray = new ImageView[6];
    }
@@ -30,43 +37,91 @@ public class StartGame extends Fragment {
    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                             Bundle savedInstanceState) {
       View view = inflater.inflate(R.layout.fragment_start_game, container, false);
-
-      configureSwitch(view);
-      configureButton(view);
+      leftIndex = 0;
+      rightIndex = 0;
+      configureBack(view);
+      configurePlay(view);
       configureDicesImage(view);
       return view;
    }
 
-   private void configureButton(View view){
+   private void configurePlay(View view){
 
-      Button select = view.findViewById(R.id.selected);
+      LinearLayout select = view.findViewById(R.id.selected);
+      select.setOnTouchListener(new View.OnTouchListener() {
+         @Override
+         public boolean onTouch(View v, MotionEvent event) {
+            int x = (int) event.getX();
+            boolean left = false;
+            int limit = liftArray.length;
 
-      select.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-         assert getFragmentManager() != null;
-         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-         transaction.replace(R.id.fragment_container, new SelectedGame(), "START_GAME");
-         transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_right, R.anim.enter_from_right, R.anim.exit_from_right);
-         transaction.addToBackStack(null);
-         transaction.commit();
-      }
-    });
+            if(leftIndex != limit) {
+               liftArray[leftIndex] = x;
+               leftIndex = leftIndex + 1;
+            }
+            else{
+               for(int i = 0; i < limit - 1; ++i){
+                  if(liftArray[i] > liftArray[i + 1])
+                  {
+                     left = true;
+                  }
+                  else{
+                     left = false;
+                     break;
+                  }
+               }
+               System.out.println(left);
+               if(left == true)
+               {
+                  assert getFragmentManager() != null;
+                  FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                  transaction.replace(R.id.fragment_container, new SelectedGame(), "START_GAME");
+                  transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_right, R.anim.enter_from_right, R.anim.exit_from_right);
+                  transaction.addToBackStack(null);
+                  transaction.commit();
+               }
+               leftIndex = 0;
+            }
+            return true;
+         }
+      });
    }
 
-   private void configureSwitch(View view){
+   private void configureBack(View view){
 
-      Switch back = view.findViewById(R.id.back);
-      back.setChecked(true);
+      LinearLayout back = view.findViewById(R.id.back);
+      back.setOnTouchListener(new View.OnTouchListener() {
+         @Override
+         public boolean onTouch(View v, MotionEvent event) {
+            int x = (int) event.getX();
+            boolean right = false;
+            int limit = rightArray.length;
 
-      back.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked)
-            {
-               FragmentManager fm = getFragmentManager();
-               assert fm != null;
-               fm.popBackStack();
+            if(rightIndex != limit) {
+               rightArray[rightIndex] = x;
+               rightIndex = rightIndex + 1;
             }
+            else{
+               for(int i = 0; i < limit - 1; ++i){
+                  if(rightArray[i] < rightArray[i + 1])
+                  {
+                     right = true;
+                  }
+                  else{
+                     right = false;
+                     break;
+                  }
+               }
+               System.out.println(right);
+               if(right == true)
+               {
+                  FragmentManager fm = getFragmentManager();
+                  assert fm != null;
+                  fm.popBackStack();
+               }
+               rightIndex = 0;
+            }
+            return true;
          }
       });
    }
