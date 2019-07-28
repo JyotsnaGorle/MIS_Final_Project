@@ -263,17 +263,40 @@
         </TableRow>
         <TableRow
             android:layout_marginBottom="20sp">
-            <Button
+
+            <LinearLayout
                 android:id="@+id/selected"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:background="@drawable/my_button"
+                android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/selectedText"
+                android:layout_width="fill_parent"
+                android:layout_height="100sp"
+                android:layout_marginStart="10sp"
                 android:text="@string/keepSelected"
-                android:textSize="20sp"/>
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="20sp" />
+            </LinearLayout>
         </TableRow>
         <TableRow>
-            <Switch
+            <LinearLayout
                 android:id="@+id/back"
-                android:text="@string/back"
-                android:textSize="20sp"/>
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/my_layout"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="100sp"
+                    android:layout_marginStart="10sp"
+                    android:text="@string/back"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="20sp" />
+            </LinearLayout>
         </TableRow>
     </TableLayout>
 </FrameLayout>
