@@ -58,6 +58,6 @@
     </string-array>
 
     <!--Notification Texts-->
-    <string name="touchButtons">Through the dices!</string>
+    <string name="touchButtons">Through the dices</string>
 
 </resources>
