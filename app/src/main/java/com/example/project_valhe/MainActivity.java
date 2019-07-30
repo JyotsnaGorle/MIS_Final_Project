@@ -4,7 +4,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -74,34 +73,6 @@ public class MainActivity extends AppCompatActivity implements SecondScreen.OnFr
    private void configureGesture(){
       layout = findViewById(R.id.app);
       layout.setOnTouchListener(handleTouch);
-
-      /*
-      layout.setOnTouchListener(new View.OnTouchListener() {
-         @Override
-         public boolean onTouch(View v, MotionEvent event) {
-            System.out.println(MotionEvent.AXIS_X);
-            int x = (int) event.getX();
-            int y = (int) event.getY();
-
-            switch (event.getAction()) {
-               case MotionEvent.ACTION_DOWN:
-                  System.out.println("down");
-                  break;
-               case MotionEvent.ACTION_MOVE:
-                  System.out.println("move");
-                  break;
-               case MotionEvent.ACTION_UP:
-                  System.out.println("up");
-                  break;
-            }
-            //switch (event.getAction()) {
-
-               //case MotionEvent.ACTION_UP:
-               //   openSecondScreen();
-            //}
-            return true;
-         }
-      });*/
    }
 
    private void openSecondScreen() {
