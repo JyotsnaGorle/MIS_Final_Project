@@ -23,11 +23,12 @@ public class SelectedGame extends Fragment {
    private Spinner spinner;
    private int[] rightArray = new int[10];
    private int rightIndex;
+
+
    @Override
    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                             Bundle savedInstanceState) {
       View view = inflater.inflate(R.layout.fragment_selected_game, container, false);
-
       configureBack(view);
       configureDone(view);
       return view;
