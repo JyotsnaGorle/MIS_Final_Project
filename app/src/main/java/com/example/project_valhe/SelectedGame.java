@@ -25,7 +25,7 @@ public class SelectedGame extends Fragment {
    private LinearLayout done;
    private EditText calPoint;
    private Spinner spinner;
-   private int[] rightArray = new int[10];
+   private int[] rightArray;
    private int rightIndex;
    private Date start;
 
@@ -37,6 +37,7 @@ public class SelectedGame extends Fragment {
       configureBack(view);
       configureDone(view);
       start = null;
+      rightArray = new int[10];
       return view;
    }
 

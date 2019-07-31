@@ -16,7 +16,7 @@ import android.widget.Switch;
 public class Information extends Fragment {
 
    private LinearLayout back;
-   private int[] downArray = new int[10];
+   private int[] downArray;
    private int downIndex;
 
    @Override
@@ -24,6 +24,7 @@ public class Information extends Fragment {
                             Bundle savedInstanceState) {
       View view = inflater.inflate(R.layout.fragment_information, container, false);
       downIndex = 0;
+      downArray = new int[10];
       configureBack(view);
 
       return view;

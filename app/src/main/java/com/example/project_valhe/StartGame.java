@@ -32,7 +32,6 @@ import android.widget.Toast;
 public class StartGame extends Fragment implements SensorEventListener{
 
    private ImageView[] diceArray;
-   private TextView touchButtons;
 
    private int[] leftArray;
    private int leftIndex;
@@ -108,7 +107,7 @@ public class StartGame extends Fragment implements SensorEventListener{
 
 
 
-   private  void configureAcceleration(){
+   private void configureAcceleration(){
       sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
       sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
       sensorManager.registerListener(this, sensor , SensorManager.SENSOR_DELAY_NORMAL);
@@ -367,10 +366,7 @@ public class StartGame extends Fragment implements SensorEventListener{
       }
    }
 
-   //TODO ---
-
-   private void configureDicesClick(View view)
-   {
+   private void configureDicesClick(View view) {
       ImageView v = (ImageView)view.findViewById(R.id.dice1);
       String backgroundImageName = String.valueOf(v.getTag());
       int tagNumber = Integer.parseInt(backgroundImageName);

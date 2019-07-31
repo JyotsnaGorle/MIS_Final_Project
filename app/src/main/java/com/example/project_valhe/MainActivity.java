@@ -15,13 +15,14 @@ public class MainActivity extends AppCompatActivity implements SecondScreen.OnFr
    private RelativeLayout layout;
    private FrameLayout fragmentContainer;
    private int index;
-   private int[] yPos = new int[10];
+   private int[] yPos;
 
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
 
       index = 0;
+      yPos = new int[10];
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
 

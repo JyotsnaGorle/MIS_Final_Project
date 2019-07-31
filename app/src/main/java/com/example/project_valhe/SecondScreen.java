@@ -18,13 +18,12 @@ public class SecondScreen extends Fragment{
    private LinearLayout showInformation;
    private int infoIndex;
    private int startGameIndex;
-   private int[] infoArray = new int[10];
-   private int[] startGameArray = new int[10];
+   private int[] infoArray;
+   private int[] startGameArray;
 
    public SecondScreen() {
    }
 
-   // TODO: Rename and change types and number of parameters
    public static SecondScreen newInstance() {
       SecondScreen fragment = new SecondScreen();
 
@@ -36,6 +35,9 @@ public class SecondScreen extends Fragment{
       super.onCreate(savedInstanceState);
       if (getArguments() != null) {
       }
+
+      infoArray = new int[10];
+      startGameArray = new int[10];
    }
 
    @Override
