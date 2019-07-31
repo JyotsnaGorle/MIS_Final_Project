@@ -36,9 +36,26 @@
     <string name="payment">Payment</string>
 
     <!--Information Text-->
-    <string name="informationText_1">The game is pretty simple. At first you can click on the dices to select the dices</string>
-    <string name="informationText_2">The game is pretty simple. At first you can click on the dices to select the dices</string>
-    <string name="informationText_3">The game is pretty simple. At first you can click on the dices to select the dices</string>
+    <string name="informationText_1">
+        You have 12 rounds to play that game. Therefore, you have to
+        role the dices. This can be done by moving the phone. This can
+        be done 3 times. You can also. If you think you have a good setup,
+    </string>
+    <string name="informationText_2">
+        you can choose the best possible combination from a list by
+        clicking the dices. The points are the sum of the dice.
+        This has to be done in every round. However, it isn’t possible
+        to select the same combination twice. If there is no combination
+        than you get 0 points.
+
+
+    </string>
+    <string name="informationText_3">
+        You get rewarded based on the sum of their reported scores, providing an incentive to lie:
+        •	$0:50 : below 150 points
+        •	$1:00 : between 150 and 200 points
+        •	$2:00 : more than 200 points
+    </string>
     <string name="diceDescription">Dices are cool</string>
 
     <string name="combinationList">Combination</string>
