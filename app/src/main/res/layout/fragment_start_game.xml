@@ -53,13 +53,14 @@
                         <TableRow
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
+
                             <ImageView
                                 android:id="@+id/dice1"
                                 android:layout_width="50sp"
                                 android:layout_height="50sp"
-                                android:background="@drawable/my_dice1"
                                 android:layout_marginBottom="7.5sp"
-                                android:tag="0"/>
+                                android:background="@drawable/my_dice1"
+                                android:tag="0" />
                         </TableRow>
 
                         <TableRow
@@ -319,25 +320,6 @@
                             android:textColor="@color/primaryTextColor"/>
                         <TextView
                             android:id="@+id/selectHouse"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="viewEnd"
-                            android:textStyle="bold"
-                            android:textColor="@color/primaryTextColor"/>
-                    </TableRow>
-                    <TableRow
-                        android:layout_marginStart="10sp"
-                        android:layout_marginEnd="10sp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:id="@+id/chance"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/chance"
-                            android:textColor="@color/primaryTextColor"/>
-                        <TextView
-                            android:id="@+id/selectChance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAlignment="viewEnd"
