@@ -16,10 +16,10 @@ public class SecondScreen extends Fragment{
    private OnFragmentInteractionListener mListener;
    private LinearLayout playGame;
    private LinearLayout showInformation;
-   private int upIndex;
-   private int leftIndex;
-   private int[] upArray = new int[10];
-   private int[] leftArray = new int[10];
+   private int infoIndex;
+   private int startGameIndex;
+   private int[] infoArray = new int[10];
+   private int[] startGameArray = new int[10];
 
    public SecondScreen() {
    }
@@ -43,8 +43,8 @@ public class SecondScreen extends Fragment{
                             Bundle savedInstanceState) {
       View view = inflater.inflate(R.layout.fragment_second_screen, container, false);
 
-      leftIndex = 0;
-      upIndex = 0;
+      startGameIndex = 0;
+      infoIndex = 0;
       configureGameLayout(view);
       configureInfoLayout(view);
 
@@ -81,15 +81,15 @@ public class SecondScreen extends Fragment{
          public boolean onTouch(View v, MotionEvent event) {
             int x = (int) event.getX();
             boolean left = false;
-            int limit = leftArray.length;
+            int limit = startGameArray.length;
 
-            if(leftIndex != limit) {
-               leftArray[leftIndex] = x;
-               leftIndex = leftIndex + 1;
+            if(startGameIndex != limit) {
+               startGameArray[startGameIndex] = x;
+               startGameIndex = startGameIndex + 1;
             }
             else{
                for(int i = 0; i < limit - 1; ++i){
-                  if(leftArray[i] > leftArray[i + 1])
+                  if(startGameArray[i] > startGameArray[i + 1])
                   {
                      left = true;
                   }
@@ -107,7 +107,7 @@ public class SecondScreen extends Fragment{
                   transaction.addToBackStack(null);
                   transaction.commit();
                }
-               leftIndex = 0;
+               startGameIndex = 0;
             }
             return true;
          }
@@ -121,35 +121,35 @@ public class SecondScreen extends Fragment{
       showInformation.setOnTouchListener(new View.OnTouchListener() {
          @Override
          public boolean onTouch(View v, MotionEvent event) {
-            int y = (int) event.getY();
-            boolean up = false;
-            int limit = upArray.length;
+            int x = (int) event.getX();
+            boolean left = false;
+            int limit = infoArray.length;
 
-            if(upIndex != limit) {
-               upArray[upIndex] = y;
-               upIndex = upIndex + 1;
+            if(infoIndex != limit) {
+               infoArray[infoIndex] = x;
+               infoIndex = infoIndex + 1;
             }
             else{
                for(int i = 0; i < limit - 1; ++i){
-                  if(upArray[i] > upArray[i + 1])
+                  if(infoArray[i] > infoArray[i + 1])
                   {
-                     up = true;
+                     left = true;
                   }
                   else{
-                     up = false;
+                     left = false;
                      break;
                   }
                }
-               System.out.println(up);
-               if(up == true)
+               System.out.println(left);
+               if(left == true)
                {
                   FragmentTransaction transaction = getFragmentManager().beginTransaction();
                   transaction.replace(R.id.fragment_container, new Information(), "INFORMATION_SCREEN");
-                  transaction.setCustomAnimations(R.anim.enter_from_bottom, R.anim.exit_from_bottom, R.anim.enter_from_bottom, R.anim.exit_from_bottom);
+                  transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.enter_from_right, R.anim.enter_from_right, R.anim.enter_from_right);
                   transaction.addToBackStack(null);
                   transaction.commit();
                }
-               upIndex = 0;
+               infoIndex = 0;
             }
             return true;
          }
