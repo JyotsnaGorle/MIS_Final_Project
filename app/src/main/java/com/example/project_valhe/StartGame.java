@@ -53,7 +53,7 @@ public class StartGame extends Fragment implements SensorEventListener{
    private float startX;
    private float startY;
    private float startZ;
-   private static float border = .1f;
+   private static float border = .15f;
    private boolean shaked;
    private int shakedDices;
 
@@ -73,8 +73,8 @@ public class StartGame extends Fragment implements SensorEventListener{
 
       diceTouch = new boolean[5];
       diceArray = new ImageView[5];
-      pointsArray = new TextView[12];
-      textPointsArray = new TextView[11];
+      pointsArray = new TextView[11];
+      textPointsArray = new TextView[10];
       leftArray = new int[10];
       rightArray = new int[10];
       initlisedAccel = false;
@@ -89,8 +89,8 @@ public class StartGame extends Fragment implements SensorEventListener{
       configureBack(view);
       configurePlay(view);
       configureDices(view);
-
       configureAcceleration();
+      configureDiceImage(view);
 
       v = view;
       return view;
@@ -132,9 +132,8 @@ public class StartGame extends Fragment implements SensorEventListener{
             startX = event.values[0];
             startY = event.values[1];
             startZ = event.values[2];
-            //System.out.println("shaked");
-            //configureDiceImage(v);
-            shakedDices = shakedDices + 1;
+            System.out.println("shaked");
+            shakeImages();
          }
          else{
             shaked = false;
@@ -154,8 +153,7 @@ public class StartGame extends Fragment implements SensorEventListener{
       pointsArray[7] = view.findViewById(R.id.selectLittleStraight);
       pointsArray[8] = view.findViewById(R.id.selectBigStraight);
       pointsArray[9] = view.findViewById(R.id.selectHouse);
-      pointsArray[10] = view.findViewById(R.id.selectChance);
-      pointsArray[11] = view.findViewById(R.id.selectPayment);
+      pointsArray[10] = view.findViewById(R.id.selectPayment);
 
       textPointsArray[0] = view.findViewById(R.id.ones);
       textPointsArray[1] = view.findViewById(R.id.twos);
@@ -167,7 +165,6 @@ public class StartGame extends Fragment implements SensorEventListener{
       textPointsArray[7] = view.findViewById(R.id.littleStraight);
       textPointsArray[8] = view.findViewById(R.id.bigStraight);
       textPointsArray[9] = view.findViewById(R.id.house);
-      textPointsArray[10] = view.findViewById(R.id.chance);
    }
 
    @Override
@@ -274,34 +271,75 @@ public class StartGame extends Fragment implements SensorEventListener{
       });
    }
 
+   private void shakeImages(){
+      if(shakedDices < 3) {
+         int arrayLen = diceArray.length;
+         for (int y = 0; y < arrayLen; ++y) {
+            double random = Math.floor(Math.random() * 5);
+            int randomInt = (int) random;
+
+            int imageViewId = getResources().getIdentifier("my_dice" + (randomInt + 1) , "drawable", "com.example.project_valhe");
+            diceArray[y].setBackgroundResource(imageViewId);
+            diceArray[y].setTag(randomInt);
+            configureDiceClick(diceArray[y], randomInt, v);
+            System.out.println("diceArray[y].getTag():" + diceArray[y].getTag());
+            shakedDices = shakedDices + 1;
+         }
+      }
+   }
    private void configureDiceImage(View view) {
       final int arrayLength = diceArray.length;
 
       for(int i = 0; i < arrayLength; ++i) {
          int imageViewId = getResources().getIdentifier("dice" + (i+1), "id", "com.example.project_valhe");
          diceArray[i] = view.findViewById(imageViewId);
-      }
+         System.out.println("diceArray[i].getTag():" + diceArray[i].getTag());
 
-      if(shakedDices != 3) {
-         int y;
-         for (y = 0; y < arrayLength; ++y) {
-            double random = Math.random();
-            random = random * 6;
-            int randomInt = (int) random + 1;
-            int imageViewId = getResources().getIdentifier("my_dice" + randomInt, "drawable", "com.example.project_valhe");
-            diceArray[y].setBackgroundResource(imageViewId);
-            diceArray[y].setTag("" + randomInt);
-         }
       }
    }
 
-   private void configureDiceTouch(ImageView v, final int number, final View view){
-      v.setOnTouchListener(new View.OnTouchListener() {
+   private void configureDiceLongClick(ImageView v, final int number, final View view){
+      v.setOnLongClickListener(new View.OnLongClickListener() {
          @Override
-         public boolean onTouch(View v, MotionEvent event) {
+         public boolean onLongClick(View v) {
+            //System.out.println("LONGCLICK");
+
+            int touchedDice = number + 1;
+            byte sum = 0;
+            for(int i = 0; i < diceTouch.length; ++i)
+            {
+               String tag = String.valueOf(diceArray[i].getTag());
+               int tagInt = Integer.parseInt(tag);
+
+               if(tagInt == number)
+               {
+                  int imageViewId = getResources().getIdentifier("my_dice_select" + (number + 1) + "", "drawable", "com.example.project_valhe");
+                  diceArray[number].setBackgroundResource(imageViewId);
+                  diceTouch[number] = true;
+                  sum = (byte)(sum + touchedDice);
+               }
+               else
+               {
+                  int imageViewId = getResources().getIdentifier("my_dice" + (i + 1) , "drawable", "com.example.project_valhe");
+                  diceArray[i].setBackgroundResource(imageViewId);
+                  diceTouch[number] = false;
+               }
+            }
+            configurePoints(sum, number, -1);
+            return true;
+         }
+      });
+   }
+
+   private void configureDiceClick(ImageView v, final int number, final View view){
+      v.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            //System.out.println("CLICK");
+
             if(diceTouch[number] == false)
             {
-               int imageViewId = getResources().getIdentifier("ic_dice_" + (number + 1) + "_select", "drawable", "com.example.project_valhe");
+               int imageViewId = getResources().getIdentifier("my_dice_select" + (number + 1), "drawable", "com.example.project_valhe");
                v.setBackgroundResource(imageViewId);
                diceTouch[number] = true;
             }
@@ -311,107 +349,166 @@ public class StartGame extends Fragment implements SensorEventListener{
                v.setBackgroundResource(imageViewId);
                diceTouch[number] = false;
             }
+
             short amountSelect = 0;
-            short counter = 0;
-            int touchedDice = number + 1;
+            short sum = 0;
+            int option = -1;
+
             for(int i = 0; i < diceTouch.length; ++i)
             {
-               String tag = String.valueOf(diceArray[i].getTag());
-               int tagInt = Integer.parseInt(tag);
-               tagInt = tagInt + 1;
-
                if(diceTouch[i] == true)
                {
                   amountSelect = (short) (amountSelect + 1);
                }
-
-               if(tagInt == touchedDice){
-                  counter = (short) (counter + 1);
-               };
             }
-            System.out.println("***************************");
-            System.out.println(amountSelect);
-            short sum = (short) (counter * touchedDice);
-            int option = -1;
-            if(amountSelect == 3|| amountSelect == 4 || amountSelect == 5)
-            {
-               int[] tags = new int[amountSelect];
-               sum = 0;
-               System.out.println("***************************");
-               for(int i = 0; i < amountSelect; ++i)
-               {
+            int[] tags = new int[amountSelect];
+
+            if(amountSelect == 3|| amountSelect == 4 || amountSelect == 5) {
+               for (int i = 0; i < amountSelect; ++i) {
                   String tag = String.valueOf(diceArray[i].getTag());
                   int tagInt = Integer.parseInt(tag);
-                  System.out.println(diceTouch[i]);
-
                   tags[i] = tagInt;
                }
                Arrays.sort(tags);
 
-               if(amountSelect == 3 || amountSelect == 4){
+               if (amountSelect == 3){
                   byte found = 0;
-                  for(int i = 0; i < amountSelect; ++i)
-                  {
-                     if(i + 1 == amountSelect && tags[i - 1] == tags[i]){
+                  for (int i = 0; i < amountSelect; ++i) {
+                     if (i + 1 == amountSelect && tags[i] == tags[i - 1]) {
                         found = (byte) (found + 1);
-                     }
-                     else if(i + 1 != amountSelect && tags[i] == tags[i + 1]){
+                        sum = (short) (sum + (tags[i]));
+                     } else if (i + 1 != amountSelect && tags[i] == tags[i + 1]) {
                         found = (byte) (found + 1);
-                     }
-                     else{
-                        found = 0;
+                        sum = (short) (sum + (tags[i]));
                      }
                   }
-                  if(found == 3)
+                  if (found == 3)
                   {
-                     System.out.println("found 3 of the same kind");
+                     //System.out.println("found 3 of the same kind");
                      option = 5;
-                  }
-                  else if(found == 4)
+                  } else if (found == 4)
                   {
-                     System.out.println("found 4 of the same kind");
+                     //System.out.println("found 4 of the same kind");
                      option = 6;
                   }
                }
-               else if(amountSelect == 4 || amountSelect == 5){
-                  for(int i = 0; i < amountSelect; ++i)
-                  {
-                     System.out.println("***************************");
-                     System.out.println(tags[i]);
+               else if (amountSelect == 4){
+                  int sumFourOfAKind = 0;
+                  int sumSmallStraight = 0;
+                  boolean fourOfAKind = true;
+                  boolean smallStraight = true;
+                  byte found = 0;
 
-                     if(i + 1 == amountSelect && tags[i] - 1 == tags[i - 1]){
-                        sum = (short)(sum + (tags[i] + 1));
+                  if(smallStraight == true) {
+                        for (int i = 0; i < amountSelect; ++i) {
+                           if (i + 1 == amountSelect && tags[i] - 1 == tags[i - 1]) {
+                              sumSmallStraight = (short) (sumSmallStraight + (tags[i] + 1));
+                              found = (byte) (found + 1);
+                           } else if (tags[i] + 1 == tags[i + 1]) {
+                              sumSmallStraight = (short) (sumSmallStraight + (tags[i] + 1));
+                              found = (byte) (found + 1);
+                           } else {
+                              smallStraight = false;
+                           }
+                        }
                      }
-                     else if(tags[i] + 1 == tags[i + 1])
-                     {
-                        sum = (short)(sum + (tags[i] + 1));
+                  if(fourOfAKind == true) {
+                        for (int i = 0; i < amountSelect; ++i) {
+                           if (i + 1 == amountSelect && tags[i] == tags[i - 1]) {
+                              found = (byte) (found + 1);
+                              sumFourOfAKind = (short) (sumFourOfAKind + (tags[i]));
+                           } else if (i + 1 != amountSelect && tags[i] == tags[i + 1]) {
+                              found = (byte) (found + 1);
+                              sumFourOfAKind = (short) (sumFourOfAKind + (tags[i]));
+                           } else {
+                              fourOfAKind = false;
+                           }
+                        }
                      }
-                     else{
-                        sum = 0;
-                     }
+
+
+                  if (fourOfAKind == true) {
+                     //System.out.println("4 of a kind");
+                     sum = (short) sumFourOfAKind;
+                     option = 6;
                   }
-                  if(amountSelect == 4)
-                  {
-                     System.out.println("small street");
+                  else if (smallStraight == true) {
+                     //System.out.println("small street");
+                     sum = (short) sumSmallStraight;
                      option = 7;
                   }
-                  if(amountSelect == 5)
-                  {
-                     System.out.println("large street");
+               }
+               else if (amountSelect == 5) {
+                  boolean bigStraight = true;
+                  int sumBigStraight = 0;
+                  boolean house = true;
+                  int sumHouse = 0;
+
+                  byte found = 0;
+                  byte found1 = 0;
+                  byte found2 = 0;
+                  boolean alreadyUsed = false;
+                  int[] oldTags = new int[amountSelect];
+
+                  if(bigStraight == true) {
+                     for (int i = 0; i < amountSelect; ++i) {
+                        if (i + 1 == amountSelect && tags[i] - 1 == tags[i - 1]) {
+                           sumBigStraight = (short) (sumBigStraight + (tags[i] + 1));
+                           found = (byte) (found + 1);
+                        } else if (tags[i] + 1 == tags[i + 1]) {
+                           sumBigStraight = (short) (sumBigStraight + (tags[i] + 1));
+                           found = (byte) (found + 1);
+                        } else {
+                           bigStraight = false;
+                        }
+                     }
+                  }
+                  if(house == true) {
+                     for(int x = 0; x < oldTags.length; ++x) {
+                        String tag = String.valueOf(diceArray[x].getTag());
+                        int tagInt = Integer.parseInt(tag);
+                        for (int x2 = 0; x2 < oldTags.length; ++x2) {
+                           if (tagInt == oldTags[x2]) {
+                              alreadyUsed = true;
+                           }
+                        }
+                        if (alreadyUsed == false) {
+                           for (int x3 = 0; x3 < oldTags.length; ++x3) {
+                              if (found1 != 3) {
+                                 found1 = (byte) (found1 + 1);
+                                 sumHouse = (short) (sumHouse + (oldTags[x3] + 1));
+                              } else {
+                                 found2 = (byte) (found2 + 1);
+                                 sumHouse = (short) (sumHouse + (oldTags[x3] + 1));
+                              }
+                           }
+                        }
+                        oldTags[x] = tagInt;
+                        if (found1 != 3 && found2 != 2) {
+                           house = false;
+                        }
+                     }
+                  }
+                  if(bigStraight == true) {
                      option = 8;
+                     //System.out.println("bigStraight");
+                     sum = (short) sumBigStraight;
+                  }
+                  if(house == true) {
+                     option = 9;
+                     sum = (short) sumHouse;
                   }
                }
             }
-            configurePoints(sum, number + 1,option );
-            return true;
+
+            configurePoints(sum, number + 1, option );
          }
       });
    }
 
    private void configurePoints(short sum, final int number, int option){
 
-      //System.out.println("**************************");
-      int diceNumber = number - 1;
+      int diceNumber = number;
       short size = (short) (pointsArray.length);
 
       for(short i = 0; i < size; ++i)
@@ -432,12 +529,12 @@ public class StartGame extends Fragment implements SensorEventListener{
 
       for(int i = 0; i < textPointsArray.length; ++i)
       {
-         if(i == (number -1))
+         if(i == (number))
          {
-            textPointsArray[number -1].setPaintFlags(textPointsArray[number -1].getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            textPointsArray[number].setPaintFlags(textPointsArray[number].getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
          }
          else{
-            textPointsArray[number -1].setPaintFlags(textPointsArray[number -1].getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+            textPointsArray[number].setPaintFlags(textPointsArray[number].getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
          }
       }
    }
@@ -447,31 +544,43 @@ public class StartGame extends Fragment implements SensorEventListener{
       ImageView v = (ImageView)view.findViewById(R.id.dice1);
       String backgroundImageName = String.valueOf(v.getTag());
       int tagNumber = Integer.parseInt(backgroundImageName);
-      configureDiceTouch(v, tagNumber, view);
+      configureDiceLongClick(v, tagNumber, view);
+      configureDiceClick(v, tagNumber, view);
       diceArray[0] = v;
 
       v = (ImageView)view.findViewById(R.id.dice2);
       backgroundImageName = String.valueOf(v.getTag());
       tagNumber = Integer.parseInt(backgroundImageName);
-      configureDiceTouch(v, tagNumber, view);
+      configureDiceLongClick(v, tagNumber, view);
+      configureDiceClick(v, tagNumber, view);
       diceArray[1] = v;
 
       v = (ImageView)view.findViewById(R.id.dice3);
       backgroundImageName = String.valueOf(v.getTag());
       tagNumber = Integer.parseInt(backgroundImageName);
-      configureDiceTouch(v, tagNumber, view);
+      configureDiceLongClick(v, tagNumber, view);
+      configureDiceClick(v, tagNumber, view);
       diceArray[2] = v;
 
       v = (ImageView)view.findViewById(R.id.dice4);
       backgroundImageName = String.valueOf(v.getTag());
       tagNumber = Integer.parseInt(backgroundImageName);
-      configureDiceTouch(v, tagNumber, view);
+      configureDiceLongClick(v, tagNumber, view);
+      configureDiceClick(v, tagNumber, view);
       diceArray[3] = v;
 
       v = (ImageView)view.findViewById(R.id.dice5);
       backgroundImageName = String.valueOf(v.getTag());
       tagNumber = Integer.parseInt(backgroundImageName);
-      configureDiceTouch(v, tagNumber, view);
+      configureDiceLongClick(v, tagNumber, view);
+      configureDiceClick(v, tagNumber, view);
       diceArray[4] = v;
    }
 }
+
+
+/*
+
+
+
+ */
