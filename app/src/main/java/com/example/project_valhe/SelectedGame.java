@@ -14,6 +14,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 
 public class SelectedGame extends Fragment {
 
@@ -23,6 +27,7 @@ public class SelectedGame extends Fragment {
    private Spinner spinner;
    private int[] rightArray = new int[10];
    private int rightIndex;
+   private Date start;
 
 
    @Override
@@ -31,7 +36,46 @@ public class SelectedGame extends Fragment {
       View view = inflater.inflate(R.layout.fragment_selected_game, container, false);
       configureBack(view);
       configureDone(view);
+      start = null;
       return view;
+   }
+
+   @Override
+   public void onResume() {
+      super.onResume();
+      getCurrentTimeStamp();
+   }
+
+   @Override
+   public void onPause() {
+      super.onPause();
+      calculateDateDifference(TimeUnit.MILLISECONDS);
+
+
+   }
+
+   public void calculateDateDifference(TimeUnit timeUnit){
+      Date end = new Date();
+      long diffInMillies = end.getTime() - start.getTime();
+
+      System.out.println("******************************************");
+      System.out.println("End");
+      System.out.println(end.getSeconds());
+      System.out.println(timeUnit.convert(diffInMillies,TimeUnit.MINUTES));
+   }
+
+
+   public void getCurrentTimeStamp(){
+      try {
+
+         start = new Date();
+         System.out.println("******************************************");
+         System.out.println("Start");
+         System.out.println(start.getSeconds());
+
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
    }
 
    private void configureDone(View view){
@@ -46,7 +90,10 @@ public class SelectedGame extends Fragment {
          public void onClick(View v) {
             String sum = calPoint.getText().toString();
             String dicPoints = spinner.getSelectedItem().toString();
+
             System.out.println("go back");
+            FragmentManager fm = getFragmentManager();
+            fm.popBackStack();
          }
       });
    }
