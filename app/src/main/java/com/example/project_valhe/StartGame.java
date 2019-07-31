@@ -29,6 +29,8 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Arrays;
+
 public class StartGame extends Fragment implements SensorEventListener{
 
    private ImageView[] diceArray;
@@ -83,10 +85,10 @@ public class StartGame extends Fragment implements SensorEventListener{
          diceTouch[i] = false;
       }
 
+
       configureBack(view);
       configurePlay(view);
-      //configureDiceImage(view);
-      configureDicesClick(view);
+      configureDices(view);
 
       configureAcceleration();
 
@@ -103,17 +105,12 @@ public class StartGame extends Fragment implements SensorEventListener{
    public void onAccuracyChanged(Sensor sensor, int accuracy) {
    }
 
-
-
-
-
    private void configureAcceleration(){
       sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
       sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
       sensorManager.registerListener(this, sensor , SensorManager.SENSOR_DELAY_NORMAL);
 
    }
-
 
    public void onSensorChanged(SensorEvent event){
 
@@ -124,9 +121,9 @@ public class StartGame extends Fragment implements SensorEventListener{
          initlisedAccel = true;
       }
       else{
-         System.out.println(event.values[0]);
-         System.out.println(startX + border);
-         System.out.println(startX - border);
+         //System.out.println(event.values[0]);
+         //System.out.println(startX + border);
+         //System.out.println(startX - border);
 
          if((event.values[0] < startX + border && event.values[0] > startX - border) &&
             (event.values[1] < startY + border && event.values[1] > startY - border) &&
@@ -135,8 +132,8 @@ public class StartGame extends Fragment implements SensorEventListener{
             startX = event.values[0];
             startY = event.values[1];
             startZ = event.values[2];
-            System.out.println("shaked");
-            configureDiceImage(v);
+            //System.out.println("shaked");
+            //configureDiceImage(v);
             shakedDices = shakedDices + 1;
          }
          else{
@@ -144,7 +141,6 @@ public class StartGame extends Fragment implements SensorEventListener{
          }
       }
    }
-
 
    private void configurePointsArray(View view){
 
@@ -221,7 +217,7 @@ public class StartGame extends Fragment implements SensorEventListener{
                         break;
                      }
                   }
-                  System.out.println(left);
+                  //System.out.println(left);
                   if (left == true) {
                      round = (short) (round + 1);
                      assert getFragmentManager() != null;
@@ -264,7 +260,7 @@ public class StartGame extends Fragment implements SensorEventListener{
                      break;
                   }
                }
-               System.out.println(right);
+               //System.out.println(right);
                if(right == true)
                {
                   FragmentManager fm = getFragmentManager();
@@ -299,22 +295,23 @@ public class StartGame extends Fragment implements SensorEventListener{
       }
    }
 
-   private void configureDice(ImageView v, final int number, final View view){
+   private void configureDiceTouch(ImageView v, final int number, final View view){
       v.setOnTouchListener(new View.OnTouchListener() {
          @Override
          public boolean onTouch(View v, MotionEvent event) {
-            if(diceTouch[number] == true)
+            if(diceTouch[number] == false)
             {
                int imageViewId = getResources().getIdentifier("ic_dice_" + (number + 1) + "_select", "drawable", "com.example.project_valhe");
                v.setBackgroundResource(imageViewId);
-               diceTouch[number] = false;
+               diceTouch[number] = true;
             }
             else
             {
                int imageViewId = getResources().getIdentifier("my_dice" + (number + 1) , "drawable", "com.example.project_valhe");
                v.setBackgroundResource(imageViewId);
-               diceTouch[number] = true;
+               diceTouch[number] = false;
             }
+            short amountSelect = 0;
             short counter = 0;
             int touchedDice = number + 1;
             for(int i = 0; i < diceTouch.length; ++i)
@@ -323,36 +320,115 @@ public class StartGame extends Fragment implements SensorEventListener{
                int tagInt = Integer.parseInt(tag);
                tagInt = tagInt + 1;
 
+               if(diceTouch[i] == true)
+               {
+                  amountSelect = (short) (amountSelect + 1);
+               }
+
                if(tagInt == touchedDice){
                   counter = (short) (counter + 1);
                };
             }
+            System.out.println("***************************");
+            System.out.println(amountSelect);
             short sum = (short) (counter * touchedDice);
+            int option = -1;
+            if(amountSelect == 3|| amountSelect == 4 || amountSelect == 5)
+            {
+               int[] tags = new int[amountSelect];
+               sum = 0;
+               System.out.println("***************************");
+               for(int i = 0; i < amountSelect; ++i)
+               {
+                  String tag = String.valueOf(diceArray[i].getTag());
+                  int tagInt = Integer.parseInt(tag);
+                  System.out.println(diceTouch[i]);
 
-            configurePoints(sum, number + 1);
+                  tags[i] = tagInt;
+               }
+               Arrays.sort(tags);
+
+               if(amountSelect == 3 || amountSelect == 4){
+                  byte found = 0;
+                  for(int i = 0; i < amountSelect; ++i)
+                  {
+                     if(i + 1 == amountSelect && tags[i - 1] == tags[i]){
+                        found = (byte) (found + 1);
+                     }
+                     else if(i + 1 != amountSelect && tags[i] == tags[i + 1]){
+                        found = (byte) (found + 1);
+                     }
+                     else{
+                        found = 0;
+                     }
+                  }
+                  if(found == 3)
+                  {
+                     System.out.println("found 3 of the same kind");
+                     option = 5;
+                  }
+                  else if(found == 4)
+                  {
+                     System.out.println("found 4 of the same kind");
+                     option = 6;
+                  }
+               }
+               else if(amountSelect == 4 || amountSelect == 5){
+                  for(int i = 0; i < amountSelect; ++i)
+                  {
+                     System.out.println("***************************");
+                     System.out.println(tags[i]);
+
+                     if(i + 1 == amountSelect && tags[i] - 1 == tags[i - 1]){
+                        sum = (short)(sum + (tags[i] + 1));
+                     }
+                     else if(tags[i] + 1 == tags[i + 1])
+                     {
+                        sum = (short)(sum + (tags[i] + 1));
+                     }
+                     else{
+                        sum = 0;
+                     }
+                  }
+                  if(amountSelect == 4)
+                  {
+                     System.out.println("small street");
+                     option = 7;
+                  }
+                  if(amountSelect == 5)
+                  {
+                     System.out.println("large street");
+                     option = 8;
+                  }
+               }
+            }
+            configurePoints(sum, number + 1,option );
             return true;
          }
       });
    }
 
-   private void configurePoints(short sum, final int number){
+   private void configurePoints(short sum, final int number, int option){
 
-      ImageView image = (ImageView)v.findViewById(R.id.dice1);
-      System.out.println("**************************");
+      //System.out.println("**************************");
       int diceNumber = number - 1;
       short size = (short) (pointsArray.length);
 
       for(short i = 0; i < size; ++i)
       {
-         if(diceNumber == i)
+         if(option != -1)
          {
-            pointsArray[i].setText("" + (sum));
+            pointsArray[option].setText("" + sum);
+         }
+         else if(diceNumber == i)
+         {
+            pointsArray[i].setText("" + sum);
          }
          else{
             pointsArray[i].setText("");
          }
       }
-      pointsArray[pointsArray.length -1].setText("" + (sum));
+      pointsArray[pointsArray.length -1].setText("" + sum); //Payment shit | sum of the points
 
       for(int i = 0; i < textPointsArray.length; ++i)
       {
@@ -366,30 +442,36 @@ public class StartGame extends Fragment implements SensorEventListener{
       }
    }
 
-   private void configureDicesClick(View view) {
+   private void configureDices(View view) {
+
       ImageView v = (ImageView)view.findViewById(R.id.dice1);
       String backgroundImageName = String.valueOf(v.getTag());
       int tagNumber = Integer.parseInt(backgroundImageName);
-      configureDice(v, tagNumber, view);
+      configureDiceTouch(v, tagNumber, view);
+      diceArray[0] = v;
 
       v = (ImageView)view.findViewById(R.id.dice2);
       backgroundImageName = String.valueOf(v.getTag());
       tagNumber = Integer.parseInt(backgroundImageName);
-      configureDice(v, tagNumber, view);
+      configureDiceTouch(v, tagNumber, view);
+      diceArray[1] = v;
 
       v = (ImageView)view.findViewById(R.id.dice3);
       backgroundImageName = String.valueOf(v.getTag());
       tagNumber = Integer.parseInt(backgroundImageName);
-      configureDice(v, tagNumber, view);
+      configureDiceTouch(v, tagNumber, view);
+      diceArray[2] = v;
 
       v = (ImageView)view.findViewById(R.id.dice4);
       backgroundImageName = String.valueOf(v.getTag());
       tagNumber = Integer.parseInt(backgroundImageName);
-      configureDice(v, tagNumber, view);
+      configureDiceTouch(v, tagNumber, view);
+      diceArray[3] = v;
 
       v = (ImageView)view.findViewById(R.id.dice5);
       backgroundImageName = String.valueOf(v.getTag());
       tagNumber = Integer.parseInt(backgroundImageName);
-      configureDice(v, tagNumber, view);
+      configureDiceTouch(v, tagNumber, view);
+      diceArray[4] = v;
    }
 }
