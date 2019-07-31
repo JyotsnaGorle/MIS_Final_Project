@@ -95,8 +95,17 @@ public class StartGame extends Fragment implements SensorEventListener{
       return view;
    }
 
+   @Override
+   public void onPause() {
+      super.onPause();
+      sensorManager.unregisterListener(this);
+   }
+
    public void onAccuracyChanged(Sensor sensor, int accuracy) {
    }
+
+
+
 
 
    private  void configureAcceleration(){
