@@ -491,7 +491,6 @@ public class StartGame extends Fragment implements SensorEventListener{
                   }
                   if(bigStraight == true) {
                      option = 8;
-                     //System.out.println("bigStraight");
                      sum = (short) sumBigStraight;
                   }
                   if(house == true) {
@@ -508,21 +507,21 @@ public class StartGame extends Fragment implements SensorEventListener{
 
    private void configurePoints(short sum, final int number, int option){
 
-      int diceNumber = number;
-      short size = (short) (pointsArray.length);
+      int diceNumber = number - 1;
+      short size = (byte) (pointsArray.length);
+      System.out.println(size);
 
-      for(short i = 0; i < size; ++i)
+      for(byte i = 0; i < size; ++i)
       {
-         if(option != -1)
+         pointsArray[i].setText("");
+
+         if(option == -1 && diceNumber == i)
+         {
+            pointsArray[diceNumber].setText("" + sum);
+         }
+         else if(option != -1)
          {
             pointsArray[option].setText("" + sum);
-         }
-         else if(diceNumber == i)
-         {
-            pointsArray[i].setText("" + sum);
-         }
-         else{
-            pointsArray[i].setText("");
          }
       }
       pointsArray[pointsArray.length -1].setText("" + sum); //Payment shit | sum of the points
