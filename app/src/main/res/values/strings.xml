@@ -29,7 +29,7 @@
     <string name="sixes">Sixes</string>
     <string name="threeOfAKind">Three of a kind</string>
     <string name="fourOfAKind">Four of a kind</string>
-    <string name="littleStraight">little Straight</string>
+    <string name="littleStraight">Little Straight</string>
     <string name="bigStraight">Big Straight</string>
     <string name="house">House</string>
     <string name="chance">Chance</string>
@@ -37,18 +37,19 @@
 
     <!--Information Text-->
     <string name="informationText_1">
-        You have 12 rounds to play that game. Therefore, you have to
-        role the dices. This can be done by moving the phone. This can
-        be done 3 times. You can also. If you think you have a good setup,
+        You have 12 rounds to play that game. At, first you have to
+        role the dices. This can be done by moving the phone. You can repeat
+        "shaking" at least 3 times. If you think you have a good setup,
     </string>
     <string name="informationText_2">
         you can choose the best possible combination from a list by
-        clicking the dices. The points are the sum of the dice.
-        This has to be done in every round. However, it isn’t possible
-        to select the same combination twice. If there is no combination
-        than you get 0 points.
-
-
+        clicking the dices. A long press on a dice selects every dice
+        that has the same number and writes down the points. A normal click
+        selects the dices you touch and try to find a "Three of a kind",
+        "Four of a kind", "Little Straight", "Big Straight", or "House" and
+        calculates the points. This has to be done in every round.
+        However, it isn’t possible to select the same combination twice.
+        If there is no combination than you get 0 points.
     </string>
     <string name="informationText_3">
         You get rewarded based on the sum of their reported scores, providing an incentive to lie:
