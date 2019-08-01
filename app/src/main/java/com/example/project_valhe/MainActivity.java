@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements SecondScreen.OnFr
    private FrameLayout fragmentContainer;
    private int index;
    private int[] yPos;
+   private boolean listenerActive;
 
 
    @Override
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements SecondScreen.OnFr
 
       index = 0;
       yPos = new int[10];
+      listenerActive = true;
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
 
@@ -34,39 +36,52 @@ public class MainActivity extends AppCompatActivity implements SecondScreen.OnFr
 
    }
 
+   @Override
+   protected void onResume() {
+      super.onResume();
+      listenerActive = true;
+   }
+
+   @Override
+   protected void onPause() {
+      super.onPause();
+      listenerActive = false;
+   }
+
    private View.OnTouchListener handleTouch = new View.OnTouchListener() {
 
       @Override
       public boolean onTouch(View v, MotionEvent event) {
 
-         int y = (int) event.getY();
-         boolean up = false;
-         int limit = yPos.length;
+         if(listenerActive == true)
+         {
+            int y = (int) event.getY();
+            boolean up = false;
+            int limit = yPos.length;
 
-         if(index != limit) {
-            yPos[index] = y;
-            index = index + 1;
-         }
-         else{
-            for(int i = 0; i < limit - 1; ++i){
-               if(yPos[i] > yPos[i + 1])
+            if(index != limit) {
+               yPos[index] = y;
+               index = index + 1;
+            }
+            else{
+               for(int i = 0; i < limit - 1; ++i){
+                  if(yPos[i] > yPos[i + 1])
+                  {
+                     up = true;
+                  }
+                  else{
+                     up = false;
+                     break;
+                  }
+               }
+               System.out.println(up);
+               if(up == true)
                {
-                  up = true;
+                  openSecondScreen();
                }
-               else{
-                  up = false;
-                  break;
-               }
+               index = 0;
             }
-            System.out.println(up);
-            if(up == true)
-            {
-               openSecondScreen();
-            }
-            index = 0;
          }
-
-
          return true;
       }
    };
