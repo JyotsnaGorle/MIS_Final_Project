@@ -577,10 +577,3 @@ public class StartGame extends Fragment implements SensorEventListener{
       diceArray[4] = v;
    }
 }
-
-
-/*
-
-
-
- */
