@@ -144,7 +144,7 @@ public class StartGame extends Fragment implements SensorEventListener{
 
                Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
                if (vibrator.hasVibrator()) {
-                  vibrator.vibrate(200); // for 500 ms
+                  vibrator.vibrate(200);
                }
 
                for(int i = 0; i < shake.length; ++i)
