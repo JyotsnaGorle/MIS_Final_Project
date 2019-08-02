@@ -11,6 +11,7 @@ import android.hardware.SensorManager;
 import android.hardware.TriggerEvent;
 import android.hardware.TriggerEventListener;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -53,10 +54,9 @@ public class StartGame extends Fragment implements SensorEventListener{
    private float startX;
    private float startY;
    private float startZ;
-   private static float border = 7.5f;
-   private boolean shaked;
+   private static float border = 2.0f;
    private int shakedDices;
-
+   private boolean shake[];
    private SensorManager sensorManager;
    private Sensor sensor;
 
@@ -70,7 +70,7 @@ public class StartGame extends Fragment implements SensorEventListener{
       round = 0;
       playGame = true;
       shakedDices = 0;
-
+      shake = new boolean[5];
       diceTouch = new boolean[5];
       diceArray = new ImageView[5];
       pointsArray = new TextView[11];
@@ -83,6 +83,7 @@ public class StartGame extends Fragment implements SensorEventListener{
       for(int i = 0; i < diceTouch.length; ++i)
       {
          diceTouch[i] = false;
+         shake[i] = false;
       }
 
 
@@ -121,21 +122,54 @@ public class StartGame extends Fragment implements SensorEventListener{
          initlisedAccel = true;
       }
       else{
-         //System.out.println(event.values[0]);
-         //System.out.println(startX + border);
-         //System.out.println(startX - border);
-
-         if((event.values[0] < startX + border && event.values[0] > startX - border) &&
-            (event.values[1] < startY + border && event.values[1] > startY - border) &&
-            (event.values[2] < startZ + border && event.values[2] > startZ - border))
+         if((event.values[0] > startX + border || event.values[0] < startX - border) &&
+            (event.values[1] > startY + border || event.values[1] < startY - border) &&
+            (shakedDices < 3))// &&
+            //(event.values[2] < startZ + border && event.values[2] > startZ - border))
          {
-            startX = event.values[0];
-            startY = event.values[1];
-            startZ = event.values[2];
-            shakeImages();
+            byte counter = 0;
+            for(int i = 0; i < shake.length; ++i)
+            {
+               if(shake[i] == false){
+                  counter = (byte)(counter + 1);
+               }
+            }
+            if(counter == shake.length){
+               System.out.println("Shaking");
+               startX = event.values[0];
+               startY = event.values[1];
+               //startZ = event.values[2];
+               shakeImages();
+               shakedDices = shakedDices + 1;
+
+               Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+               if (vibrator.hasVibrator()) {
+                  vibrator.vibrate(200); // for 500 ms
+               }
+
+               for(int i = 0; i < shake.length; ++i)
+               {
+                  if(i + 1 != shake.length)
+                  {
+                     shake[i] = shake[i + 1];
+                  }
+                  else{
+                     shake[shake.length - 1] = true;
+                  }
+               }
+            }
          }
          else{
-            shaked = false;
+            for(int i = 0; i < shake.length; ++i)
+            {
+               if(i + 1 != shake.length)
+               {
+                  shake[i] = shake[i + 1];
+               }
+               else{
+                  shake[shake.length - 1] = false;
+               }
+            }
          }
       }
    }
@@ -271,21 +305,16 @@ public class StartGame extends Fragment implements SensorEventListener{
    }
 
    private void shakeImages(){
-      if(shakedDices < 3) {
-         System.out.println("shaked");
+      int arrayLen = diceArray.length;
+      for (int y = 0; y < arrayLen; ++y) {
+         double random = Math.floor(Math.random() * 5);
+         int randomInt = (int) random;
 
-         int arrayLen = diceArray.length;
-         for (int y = 0; y < arrayLen; ++y) {
-            double random = Math.floor(Math.random() * 5);
-            int randomInt = (int) random;
-
-            int imageViewId = getResources().getIdentifier("my_dice" + (randomInt + 1) , "drawable", "com.example.project_valhe");
-            diceArray[y].setBackgroundResource(imageViewId);
-            diceArray[y].setTag(randomInt);
-            configureDiceClick(diceArray[y], randomInt);
-            configureDiceLongClick(diceArray[y], randomInt);
-         }
-         shakedDices = shakedDices + 1;
+         int imageViewId = getResources().getIdentifier("my_dice" + (randomInt + 1) , "drawable", "com.example.project_valhe");
+         diceArray[y].setBackgroundResource(imageViewId);
+         diceArray[y].setTag(randomInt);
+         configureDiceClick(diceArray[y], randomInt);
+         configureDiceLongClick(diceArray[y], randomInt);
       }
    }
 
