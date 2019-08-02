@@ -75,8 +75,7 @@ public class SecondScreen extends Fragment{
       void onFragmentInteraction(String sendBackText);
    }
 
-   private void configureGameLayout(View view)
-   {
+   private void configureGameLayout(View view) {
       playGame = (RelativeLayout) view.findViewById(R.id.playGame);
 
       playGame.setOnTouchListener(new View.OnTouchListener() {
@@ -117,8 +116,7 @@ public class SecondScreen extends Fragment{
       });
    }
 
-   private void configureInfoLayout(View view)
-   {
+   private void configureInfoLayout(View view) {
       showInformation = (RelativeLayout) view.findViewById(R.id.information);
 
       showInformation.setOnTouchListener(new View.OnTouchListener() {

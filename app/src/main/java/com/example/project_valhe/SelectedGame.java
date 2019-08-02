@@ -39,7 +39,7 @@ public class SelectedGame extends Fragment implements SensorEventListener {
    private SensorManager sensorManagerPressure;
    private Sensor pressure;
    private boolean initPressure;
-   private double initpPressureValue;
+   private double initPressureValue;
 
    private SensorManager sensorManagerAccel;
    private Sensor accel;
@@ -56,6 +56,9 @@ public class SelectedGame extends Fragment implements SensorEventListener {
       configureDone(view);
       start = null;
       rightArray = new int[10];
+      xAxisTurns = 0;
+      yAxisTurns = 0;
+      zAxisTurns = 0;
 
       sensorManagerPressure = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
       pressure = sensorManagerPressure.getDefaultSensor(Sensor.TYPE_PRESSURE);
@@ -65,50 +68,6 @@ public class SelectedGame extends Fragment implements SensorEventListener {
       accel = sensorManagerAccel.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
 
       return view;
-   }
-
-   @Override
-   public final void onAccuracyChanged(Sensor sensor, int accuracy) {
-      // Do something here if sensor accuracy changes.
-   }
-
-   @Override
-   public final void onSensorChanged(SensorEvent event) {
-
-      if (event.sensor.getType() == Sensor.TYPE_PRESSURE) {
-         if (initPressure == false) {
-            initpPressureValue = event.values[0];
-            initPressure = true;
-         } else {
-            double pressure = event.values[0] - initpPressureValue;
-            //System.out.println(pressure);
-         }
-      }
-
-      if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
-         float xAngle = event.values[0];
-         float yAngle = event.values[1];
-         float zAngle = event.values[2];
-
-         System.out.println("xAngle: " + xAngle);
-         System.out.println("yAngle: " + yAngle);
-         System.out.println("zAngle: " + zAngle);
-
-         //is that enough for you?
-         if(xAngle > boarderAngle)
-         {
-            xAxisTurns = xAxisTurns + 1;
-         }
-         if(yAngle > boarderAngle)
-         {
-            yAxisTurns = yAxisTurns + 1;
-         }
-         if(xAngle > boarderAngle)
-         {
-            zAxisTurns = zAxisTurns + 1;
-         }
-      }
-
    }
 
    @Override
@@ -212,4 +171,49 @@ public class SelectedGame extends Fragment implements SensorEventListener {
          }
       });
    }
+
+   @Override
+   public final void onAccuracyChanged(Sensor sensor, int accuracy) {
+      // Do something here if sensor accuracy changes.
+   }
+
+   @Override
+   public final void onSensorChanged(SensorEvent event) {
+
+      if (event.sensor.getType() == Sensor.TYPE_PRESSURE) {
+         if (initPressure == false) {
+            initPressureValue = event.values[0];
+            initPressure = true;
+         } else {
+            double pressure = event.values[0] - initPressureValue;
+            //System.out.println(pressure);
+         }
+      }
+
+      if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
+         float xAngle = event.values[0];
+         float yAngle = event.values[1];
+         float zAngle = event.values[2];
+
+         System.out.println("xAngle: " + xAngle);
+         System.out.println("yAngle: " + yAngle);
+         System.out.println("zAngle: " + zAngle);
+
+         //is that enough for you?
+         if(xAngle > boarderAngle)
+         {
+            xAxisTurns = xAxisTurns + 1;
+         }
+         if(yAngle > boarderAngle)
+         {
+            yAxisTurns = yAxisTurns + 1;
+         }
+         if(xAngle > boarderAngle)
+         {
+            zAxisTurns = zAxisTurns + 1;
+         }
+      }
+
+   }
+
 }
