@@ -317,7 +317,7 @@ public class StartGame extends Fragment implements SensorEventListener{
          configureDiceLongClick(diceArray[y], randomInt);
       }
    }
-
+/*
    private void configureDiceImage(View view) {
       final int arrayLength = diceArray.length;
 
@@ -328,7 +328,7 @@ public class StartGame extends Fragment implements SensorEventListener{
 
       }
    }
-
+*/
    private void configureDiceLongClick(ImageView v, final int number){
       v.setOnLongClickListener(new View.OnLongClickListener() {
          @Override
