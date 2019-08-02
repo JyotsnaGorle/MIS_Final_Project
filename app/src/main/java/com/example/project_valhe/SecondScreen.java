@@ -10,12 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class SecondScreen extends Fragment{
 
    private OnFragmentInteractionListener mListener;
-   private LinearLayout playGame;
-   private LinearLayout showInformation;
+   private RelativeLayout playGame;
+   private RelativeLayout showInformation;
    private int infoIndex;
    private int startGameIndex;
    private int[] infoArray;
@@ -76,7 +77,7 @@ public class SecondScreen extends Fragment{
 
    private void configureGameLayout(View view)
    {
-      playGame = (LinearLayout) view.findViewById(R.id.playGame);
+      playGame = (RelativeLayout) view.findViewById(R.id.playGame);
 
       playGame.setOnTouchListener(new View.OnTouchListener() {
          @Override
@@ -118,7 +119,7 @@ public class SecondScreen extends Fragment{
 
    private void configureInfoLayout(View view)
    {
-      showInformation = (LinearLayout) view.findViewById(R.id.information);
+      showInformation = (RelativeLayout) view.findViewById(R.id.information);
 
       showInformation.setOnTouchListener(new View.OnTouchListener() {
          @Override

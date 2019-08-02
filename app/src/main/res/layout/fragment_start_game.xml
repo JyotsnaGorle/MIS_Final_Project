@@ -56,8 +56,8 @@
 
                             <ImageView
                                 android:id="@+id/dice1"
-                                android:layout_width="50sp"
-                                android:layout_height="50sp"
+                                android:layout_width="53sp"
+                                android:layout_height="53sp"
                                 android:layout_marginBottom="7.5sp"
                                 android:background="@drawable/my_dice1"
                                 android:tag="0" />
@@ -68,8 +68,8 @@
                             android:layout_height="match_parent">
                             <ImageView
                                 android:id="@+id/dice2"
-                                android:layout_width="50sp"
-                                android:layout_height="50sp"
+                                android:layout_width="53sp"
+                                android:layout_height="53sp"
                                 android:background="@drawable/my_dice2"
                                 android:layout_marginBottom="7.5sp"
                                 android:tag="1" />
@@ -81,8 +81,8 @@
                             android:layout_height="match_parent">
                             <ImageView
                                 android:id="@+id/dice3"
-                                android:layout_width="50sp"
-                                android:layout_height="50sp"
+                                android:layout_width="53sp"
+                                android:layout_height="53sp"
                                 android:background="@drawable/my_dice3"
                                 android:layout_marginBottom="7.5sp"
                                 android:tag="2"/>
@@ -92,8 +92,8 @@
                             android:layout_height="match_parent">
                             <ImageView
                                 android:id="@+id/dice4"
-                                android:layout_width="50sp"
-                                android:layout_height="50sp"
+                                android:layout_width="55sp"
+                                android:layout_height="55sp"
                                 android:background="@drawable/my_dice4"
                                 android:layout_marginBottom="7.5sp"
                                 android:tag="3"/>
@@ -103,8 +103,8 @@
                             android:layout_height="match_parent">
                             <ImageView
                                 android:id="@+id/dice5"
-                                android:layout_width="50sp"
-                                android:layout_height="50sp"
+                                android:layout_width="53sp"
+                                android:layout_height="53sp"
                                 android:background="@drawable/my_dice5"
                                 android:tag="4"/>
                         </TableRow>
@@ -355,40 +355,69 @@
             </LinearLayout>
         </TableRow>
         <TableRow
-            android:layout_marginBottom="20sp">
+            android:layout_marginBottom="30sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/selected"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@drawable/my_button"
-                android:orientation="vertical">
-            <TextView
-                android:id="@+id/selectedText"
-                android:layout_width="fill_parent"
-                android:layout_height="100sp"
-                android:layout_marginStart="10sp"
-                android:text="@string/keepSelected"
-                android:textColor="@color/secondaryTextColor"
-                android:textSize="20sp" />
-            </LinearLayout>
-        </TableRow>
-        <TableRow>
-            <LinearLayout
-                android:id="@+id/back"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+            <RelativeLayout
                 android:background="@drawable/my_layout"
-                android:orientation="vertical">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/selected">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="4sp"
+                    android:layout_marginBottom="4sp"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentEnd="false"
+                    android:layout_alignParentBottom="false"
+                    android:background="@drawable/forward_arrow" />
 
                 <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="100sp"
-                    android:layout_marginStart="10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/keepSelected"
+                    android:layout_marginLeft="2sp"
+                    android:textColor="#F1F1F1"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:textSize="21sp" />
+            </RelativeLayout>
+
+
+        </TableRow>
+        <TableRow>
+            <RelativeLayout
+                android:background="@drawable/my_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/back">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="false"
+
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="false"
+                    android:layout_marginTop="4sp"
+                    android:layout_marginBottom="4sp"
+                    android:background="@drawable/back_arrow" />
+
+                <TextView
+                    android:id="@+id/selectedText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/back"
-                    android:textColor="@color/secondaryTextColor"
-                    android:textSize="20sp" />
-            </LinearLayout>
+                    android:layout_marginRight="2sp"
+                    android:textColor="#F1F1F1"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:textSize="21sp" />
+            </RelativeLayout>
         </TableRow>
     </TableLayout>
 </FrameLayout>

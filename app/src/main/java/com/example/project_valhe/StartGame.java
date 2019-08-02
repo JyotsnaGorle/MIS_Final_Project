@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -215,18 +216,18 @@ public class StartGame extends Fragment implements SensorEventListener{
    private void configureRounds(View view){
       if(round == done)
       {
-         LinearLayout select = view.findViewById(R.id.selected);
+         RelativeLayout select = view.findViewById(R.id.selected);
          select.setBackgroundColor(Color.GREEN);
 
          TextView text = view.findViewById(R.id.selectedText);
-         text.setText("Done! Fnd Results");
+         text.setText("Done! Find results");
 
       }
    }
 
    private void configurePlay(View view){
 
-      LinearLayout select = view.findViewById(R.id.selected);
+      RelativeLayout select = view.findViewById(R.id.selected);
       select.setOnTouchListener(new View.OnTouchListener() {
          @Override
          public boolean onTouch(View v, MotionEvent event) {
@@ -267,7 +268,7 @@ public class StartGame extends Fragment implements SensorEventListener{
 
    private void configureBack(View view){
 
-      LinearLayout back = view.findViewById(R.id.back);
+      RelativeLayout back = view.findViewById(R.id.back);
       back.setOnTouchListener(new View.OnTouchListener() {
          @Override
          public boolean onTouch(View v, MotionEvent event) {

@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import java.text.SimpleDateFormat;
@@ -27,8 +28,8 @@ import java.util.concurrent.TimeUnit;
 
 public class SelectedGame extends Fragment implements SensorEventListener {
 
-   private LinearLayout back;
-   private LinearLayout done;
+   private RelativeLayout back;
+   private RelativeLayout done;
    private EditText calPoint;
    private Spinner spinner;
    private int[] rightArray;

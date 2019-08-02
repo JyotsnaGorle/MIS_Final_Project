@@ -11,11 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 
 public class Information extends Fragment {
 
-   private LinearLayout back;
+   private RelativeLayout back;
    private int[] downArray;
    private int downIndex;
 
@@ -32,7 +33,7 @@ public class Information extends Fragment {
 
    private void configureBack(View view){
 
-      back = view.findViewById(R.id.information_back);
+      back = (RelativeLayout) view.findViewById(R.id.information_back);
       back.setOnTouchListener(new View.OnTouchListener() {
          @Override
          public boolean onTouch(View v, MotionEvent event) {
