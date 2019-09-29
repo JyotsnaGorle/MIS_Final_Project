@@ -12,12 +12,14 @@ import android.hardware.TriggerEvent;
 import android.hardware.TriggerEventListener;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.preference.PreferenceActivity;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.AppCompatImageView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -31,7 +33,16 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Arrays;
+
+import cz.msebera.android.httpclient.Header;
 
 public class StartGame extends Fragment implements SensorEventListener{
 
@@ -60,6 +71,7 @@ public class StartGame extends Fragment implements SensorEventListener{
    private boolean shake[];
    private SensorManager sensorManager;
    private Sensor sensor;
+   private int totalPoints = -1;
 
 
    @Override
@@ -252,11 +264,9 @@ public class StartGame extends Fragment implements SensorEventListener{
                   if (left == true) {
                      round = (short) (round + 1);
                      assert getFragmentManager() != null;
-                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                     transaction.replace(R.id.fragment_container, new SelectedGame(), "START_GAME");
-                     transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_right, R.anim.enter_from_right, R.anim.exit_from_right);
-                     transaction.addToBackStack(null);
-                     transaction.commit();
+                     if (totalPoints >= 0) {
+                        submitTruePoints(totalPoints);
+                     }
                   }
                   leftIndex = 0;
                }
@@ -567,6 +577,31 @@ public class StartGame extends Fragment implements SensorEventListener{
             textPointsArray[number].setPaintFlags(textPointsArray[number].getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
          }
       }
+      totalPoints = sum;
+   }
+
+   private void submitTruePoints(int sum) {
+      RequestParams params = new RequestParams();
+      params.put("truePoints", sum);
+
+      RestClient.get("storeTruth", params, new JsonHttpResponseHandler() {
+         @Override
+         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            Log.d("API CALL", "storeTruth success");
+            assert getFragmentManager() != null;
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, new SelectedGame(), "START_GAME");
+            transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_right, R.anim.enter_from_right, R.anim.exit_from_right);
+            transaction.addToBackStack(null);
+            transaction.commit();
+         }
+
+         @Override
+         public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+            super.onFailure(statusCode, headers, responseString, throwable);
+            Log.d("API CALL", "storeTruth Failed");
+         }
+      });
    }
 
    private void configureDices(View view) {
