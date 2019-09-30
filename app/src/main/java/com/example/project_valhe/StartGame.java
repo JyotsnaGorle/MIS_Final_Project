@@ -72,6 +72,8 @@ public class StartGame extends Fragment implements SensorEventListener{
    private SensorManager sensorManager;
    private Sensor sensor;
    private int totalPoints = -1;
+   short amountSelect = 0;
+   private boolean selected;
 
 
    @Override
@@ -91,6 +93,7 @@ public class StartGame extends Fragment implements SensorEventListener{
       leftArray = new int[10];
       rightArray = new int[10];
       initlisedAccel = false;
+      selected = false;
       configurePointsArray(view);
 
       for(int i = 0; i < diceTouch.length; ++i)
@@ -239,11 +242,11 @@ public class StartGame extends Fragment implements SensorEventListener{
 
    private void configurePlay(View view){
 
-      RelativeLayout select = view.findViewById(R.id.selected);
+      final RelativeLayout select = view.findViewById(R.id.selected);
       select.setOnTouchListener(new View.OnTouchListener() {
          @Override
          public boolean onTouch(View v, MotionEvent event) {
-            if (playGame == true) {
+            if (playGame == true && selected!=false) {
                int x = (int) event.getX();
                boolean left = false;
                int limit = leftArray.length;
@@ -270,6 +273,15 @@ public class StartGame extends Fragment implements SensorEventListener{
                   }
                   leftIndex = 0;
                }
+            }
+
+            else {
+               Context context = getContext();
+               CharSequence text = "You forgot to select dices";
+
+               Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+               toast.show();
+
             }
             return true;
          }
@@ -392,7 +404,6 @@ public class StartGame extends Fragment implements SensorEventListener{
                diceTouch[number] = false;
             }
 
-            short amountSelect = 0;
             short sum = 0;
             int option = -1;
 
@@ -404,6 +415,7 @@ public class StartGame extends Fragment implements SensorEventListener{
                }
             }
             int[] tags = new int[amountSelect];
+            System.out.println("***********" +  amountSelect);
 
             if(amountSelect == 3|| amountSelect == 4 || amountSelect == 5) {
                for (int i = 0; i < amountSelect; ++i) {
@@ -567,6 +579,8 @@ public class StartGame extends Fragment implements SensorEventListener{
       }
       pointsArray[pointsArray.length -1].setText("" + sum); //Payment shit | sum of the points
 
+      selected = true;
+      
       for(int i = 0; i < textPointsArray.length; ++i)
       {
          if(i == (number))
@@ -640,5 +654,7 @@ public class StartGame extends Fragment implements SensorEventListener{
       diceArray[4] = v;
       configureDiceLongClick(v, tagNumber);
       configureDiceClick(v, tagNumber);
+
+      shakeImages();
    }
 }
