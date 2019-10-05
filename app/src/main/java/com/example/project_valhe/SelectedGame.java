@@ -8,7 +8,6 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
@@ -99,20 +98,12 @@ public class SelectedGame extends Fragment implements SensorEventListener {
    public long calculateDateDifference(TimeUnit timeUnit){
       Date end = new Date();
       long diffInMillies = end.getTime() - start.getTime();
-
-      //System.out.println("******************************************");
-      //System.out.println("End");
-      //System.out.println(end.getSeconds());
-      //System.out.println(timeUnit.convert(diffInMillies,TimeUnit.MINUTES));
       return diffInMillies;
    }
 
    public void getCurrentTimeStamp(){
       try {
-
          start = new Date();
-         //System.out.println(start.getSeconds());
-
       } catch (Exception e) {
          e.printStackTrace();
       }
@@ -133,8 +124,6 @@ public class SelectedGame extends Fragment implements SensorEventListener {
             String dicPoints = spinner.getSelectedItem().toString();
 
             long inputTimeDiff = calculateDateDifference(TimeUnit.MILLISECONDS);
-
-            //System.out.println("go back");
             submitLiePoints(sum, finalPressureArray.toString(), xAxisTurns, inputTimeDiff);
          }
       });
@@ -147,7 +136,6 @@ public class SelectedGame extends Fragment implements SensorEventListener {
 
          @Override
          public void onTextChanged(CharSequence s, int start, int before, int count) {
-            System.out.println(finalPressure);
             finalPressureArray.add(finalPressure);
          }
 
@@ -206,7 +194,6 @@ public class SelectedGame extends Fragment implements SensorEventListener {
                      break;
                   }
                }
-               //System.out.println(left);
                if(left == true)
                {
                   FragmentManager fm = getFragmentManager();
@@ -235,7 +222,6 @@ public class SelectedGame extends Fragment implements SensorEventListener {
             initPressure = true;
          } else {
             finalPressure = event.values[0] - initPressureValue;
-            //System.out.println(pressure);
          }
       }
 
@@ -243,10 +229,6 @@ public class SelectedGame extends Fragment implements SensorEventListener {
          float xAngle = event.values[0];
          float yAngle = event.values[1];
          float zAngle = event.values[2];
-
-         System.out.println("xAngle: " + xAngle);
-         System.out.println("yAngle: " + yAngle);
-         System.out.println("zAngle: " + zAngle);
 
          //is that enough for you?
          if(xAngle > boarderAngle)

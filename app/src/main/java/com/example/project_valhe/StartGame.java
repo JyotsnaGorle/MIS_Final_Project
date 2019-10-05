@@ -3,41 +3,29 @@ package com.example.project_valhe;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.hardware.TriggerEvent;
-import android.hardware.TriggerEventListener;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.preference.PreferenceActivity;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
@@ -75,7 +63,7 @@ public class StartGame extends Fragment implements SensorEventListener{
    private SensorManager sensorManager;
    private Sensor sensor;
    private int totalPoints = -1;
-   short amountSelect = 0;
+   private short amountSelect = 0;
    private boolean selected;
 
 
@@ -164,7 +152,6 @@ public class StartGame extends Fragment implements SensorEventListener{
                   diceTouch[i] = false;
                   diceSelect[i] = -1;
                }
-               //System.out.println("Shaking");
                startX = event.values[0];
                startY = event.values[1];
                //startZ = event.values[2];
@@ -373,9 +360,6 @@ public class StartGame extends Fragment implements SensorEventListener{
 
             String tagString = String.valueOf(v.getTag());
             int tagInteger =  Integer.parseInt(tagString);
-            System.out.println(tagInteger);
-            System.out.println(diceArray[0].getTag());
-            //System.out.println(diceValue); // val + 1 -> what you see || number + 1 -> what you touched
 
             for(int i = 0; i < diceLongTouch.length; ++i)
             {
@@ -402,13 +386,9 @@ public class StartGame extends Fragment implements SensorEventListener{
       v.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            //System.out.println(number);
-            //System.out.println(diceTouch[0]);
 
             String tagString = String.valueOf(v.getTag());
             int tagInteger =  Integer.parseInt(tagString);
-            System.out.println(tagInteger);
-            System.out.println(diceArray[0].getTag());
 
             if(diceTouch[tagInteger] == false)
             {
@@ -438,8 +418,6 @@ public class StartGame extends Fragment implements SensorEventListener{
             {
                if(diceSelect[i] != -1) { amountSelect = (short) (amountSelect + 1) ;}
             }
-            System.out.println(amountSelect);
-
 
             if(amountSelect == 3|| amountSelect == 4 || amountSelect == 5) {
                Arrays.sort(diceSelect);
@@ -457,7 +435,6 @@ public class StartGame extends Fragment implements SensorEventListener{
                         }
                      }
                      if (found == 3) {
-                        System.out.println("number: " + number);
                         sum = (short) (number + number + number);
                         option = 5;
                      }
@@ -582,6 +559,7 @@ public class StartGame extends Fragment implements SensorEventListener{
    }
 
    private void configurePoints(short sum, final int number, int option){
+      selected = true;
 
       short size = (byte) (pointsArray.length);
 
@@ -600,8 +578,6 @@ public class StartGame extends Fragment implements SensorEventListener{
       }
       pointsArray[pointsArray.length -1].setText("" + sum); //Payment shit | sum of the points
 
-      selected = true;
-      
       for(int i = 0; i < textPointsArray.length; ++i)
       {
          if(i == (number))

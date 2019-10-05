@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 public class SecondScreen extends Fragment{
@@ -100,7 +98,6 @@ public class SecondScreen extends Fragment{
                      break;
                   }
                }
-               System.out.println(left);
                if(left == true)
                {
                   FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -141,7 +138,6 @@ public class SecondScreen extends Fragment{
                      break;
                   }
                }
-               System.out.println(left);
                if(left == true)
                {
                   FragmentTransaction transaction = getFragmentManager().beginTransaction();

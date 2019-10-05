@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements SecondScreen.OnFr
                      break;
                   }
                }
-               System.out.println(up);
                if(up == true)
                {
                   openSecondScreen();
