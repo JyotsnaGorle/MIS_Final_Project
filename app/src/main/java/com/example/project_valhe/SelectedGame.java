@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -124,24 +125,42 @@ public class SelectedGame extends Fragment implements SensorEventListener {
             String dicPoints = spinner.getSelectedItem().toString();
 
             long inputTimeDiff = calculateDateDifference(TimeUnit.MILLISECONDS);
+            if(inputTimeDiff > 10000) {
+               Context context = getContext();
+               CharSequence text = "We think you could be lying";
+
+               Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
+               toast.show();
+            }
             submitLiePoints(sum, finalPressureArray.toString(), xAxisTurns, inputTimeDiff);
          }
       });
 
       calPoint.addTextChangedListener(new TextWatcher() {
+         private double pressureBeforeTextChange;
+         private double pressureAfterTextChange;
          @Override
          public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+            pressureBeforeTextChange = finalPressure;
          }
 
          @Override
          public void onTextChanged(CharSequence s, int start, int before, int count) {
             finalPressureArray.add(finalPressure);
+            pressureAfterTextChange = finalPressure;
          }
 
          @Override
          public void afterTextChanged(Editable s) {
+            if (finalPressureArray.size() >= 2) {
+               if(finalPressureArray.get(finalPressureArray.size() - 1) - finalPressureArray.get(finalPressureArray.size() - 2) > 0) {
+                  Context context = getContext();
+                  CharSequence text = "We think you are lying";
 
+                  Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+                  toast.show();
+               }
+            }
          }
       });
    }
@@ -235,6 +254,7 @@ public class SelectedGame extends Fragment implements SensorEventListener {
          {
             xAxisTurns =  xAngle;
          }
+
       }
 
    }
