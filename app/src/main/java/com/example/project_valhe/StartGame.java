@@ -229,14 +229,12 @@ public class StartGame extends Fragment implements SensorEventListener{
    }
 
    private void configureRounds(View view){
-      if(round == done)
-      {
-         RelativeLayout select = view.findViewById(R.id.selected);
-         select.setBackgroundColor(Color.GREEN);
+      if(round == done) {
+         Context context = getContext();
+         CharSequence text = "END";
 
-         TextView text = view.findViewById(R.id.selectedText);
-         text.setText("Done! Find results");
-
+         Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+         toast.show();
       }
    }
 
@@ -339,44 +337,52 @@ public class StartGame extends Fragment implements SensorEventListener{
          dicesValue[y] = randomInt;
       }
    }
-/*
-   private void configureDiceImage(View view) {
-      final int arrayLength = diceArray.length;
 
-      for(int i = 0; i < arrayLength; ++i) {
-         int imageViewId = getResources().getIdentifier("dice" + (i+1), "id", "com.example.project_valhe");
-         diceArray[i] = view.findViewById(imageViewId);
-         System.out.println("diceArray[i].getTag():" + diceArray[i].getTag());
-
-      }
-   }
-*/
    private void configureDiceLongClick(ImageView v, final int number){
       v.setOnLongClickListener(new View.OnLongClickListener() {
          @Override
          public boolean onLongClick(View v) {
+
+            for(int i = 0; i < diceTouch.length; ++i) {
+               diceTouch[i] = false;
+               diceSelect[i] = -1;
+            }
 
             byte sum = 0;
 
             String tagString = String.valueOf(v.getTag());
             int tagInteger =  Integer.parseInt(tagString);
 
-            for(int i = 0; i < diceLongTouch.length; ++i)
+            if(diceLongTouch[tagInteger] == false)
             {
-               int diceValue = dicesValue[i];
-
-               int imageViewId = getResources().getIdentifier("my_dice" + (diceValue + 1), "drawable", "com.example.project_valhe");
-               diceArray[i].setBackgroundResource(imageViewId);
-               diceLongTouch[i] = false;
-               if(number == diceValue)
+               for(int i = 0; i < diceLongTouch.length; ++i)
                {
-                  imageViewId = getResources().getIdentifier("my_dice_select" + (number + 1), "drawable", "com.example.project_valhe");
+                  int diceValue = dicesValue[i];
+
+                  int imageViewId = getResources().getIdentifier("my_dice" + (diceValue + 1), "drawable", "com.example.project_valhe");
                   diceArray[i].setBackgroundResource(imageViewId);
-                  diceLongTouch[i] = true;
-                  sum = (byte) (sum + (number + 1));
+                  diceLongTouch[i] = false;
+                  if(number == diceValue)
+                  {
+                     imageViewId = getResources().getIdentifier("my_dice_select" + (number + 1), "drawable", "com.example.project_valhe");
+                     diceArray[i].setBackgroundResource(imageViewId);
+                     diceLongTouch[i] = true;
+                     sum = (byte) (sum + (number + 1));
+                  }
+               }
+               configurePoints(sum, number, -1);
+            }
+            else
+            {
+               for(int i = 0; i < diceLongTouch.length; ++i)
+               {
+                  int diceValue = dicesValue[i];
+
+                  int imageViewId = getResources().getIdentifier("my_dice" + (diceValue + 1), "drawable", "com.example.project_valhe");
+                  diceArray[i].setBackgroundResource(imageViewId);
+                  diceLongTouch[i] = false;
                }
             }
-            configurePoints(sum, number, -1);
             return true;
          }
       });
@@ -386,7 +392,9 @@ public class StartGame extends Fragment implements SensorEventListener{
       v.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-
+            for(int i = 0; i < diceLongTouch.length; ++i) {
+               diceLongTouch[i] = false;
+            }
             String tagString = String.valueOf(v.getTag());
             int tagInteger =  Integer.parseInt(tagString);
 
@@ -419,7 +427,7 @@ public class StartGame extends Fragment implements SensorEventListener{
                if(diceSelect[i] != -1) { amountSelect = (short) (amountSelect + 1) ;}
             }
 
-            if(amountSelect == 3|| amountSelect == 4 || amountSelect == 5) {
+            if(amountSelect == 3 || amountSelect == 4 || amountSelect == 5) {
                Arrays.sort(diceSelect);
                int found = 0;
                int propablySum = 0;
@@ -506,12 +514,13 @@ public class StartGame extends Fragment implements SensorEventListener{
                      checkIn = true;
                   }
                   if (checkIn == false){
-                     found = 0;
                      int probablySum1 = 0;
                      int probablySum2 = 0;
                      int storedValue;
                      for(int i = 0; i < diceSelect.length; ++i) {
                         int number = diceSelect[i];
+                        found = 0;
+                        probablySum1 = 0;
                         for (int y = 0; y < diceSelect.length; ++y) {
                            int number2 = diceSelect[y];
                            if(number2 == number && number != -1)
@@ -519,12 +528,13 @@ public class StartGame extends Fragment implements SensorEventListener{
                               found =  found + 1;
                               probablySum1 = probablySum1 + number;
                            }
-                           if(found == 3)
+                           if(found == 2)
                            {
-                              found = 0;
                               storedValue = number;
                               for (int z = 0; z < diceSelect.length; ++z) {
                                  int number3 = diceSelect[z];
+                                 found = 0;
+                                 probablySum2 = 0;
                                  for (int c = 0; c < diceSelect.length; ++c) {
                                     int number4 = diceSelect[c];
                                     if (number3 != storedValue)
@@ -534,7 +544,7 @@ public class StartGame extends Fragment implements SensorEventListener{
                                           probablySum2 = probablySum2 + number3;
                                        }
 
-                                       if(found == 2)
+                                       if(found == 3)
                                        {
                                           option = 9;
                                           checkIn = true;
